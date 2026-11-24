@@ -1,0 +1,558 @@
+================================================================================
+BATCH GENERATION SCRIPT: 25 SYNTHETIC LHW-PATIENT TRANSCRIPTS
+================================================================================
+Instructions: Feed this ENTIRE document to an LLM (Claude, GPT-4o, Gemini, etc.)
+The LLM will generate all 25 transcripts sequentially into a single output.
+Save the output as a .txt or .docx file.
+
+Run this script on 3 different LLMs to get 75 total transcripts (25 x 3).
+================================================================================
+
+SYSTEM PROMPT (paste this as the system/context instruction):
+--------------------------------------------------------------
+You are a synthetic data generator for a maternal healthcare AI research study 
+at LUMS, Pakistan. You will generate 25 realistic transcripts of home-visit 
+conversations between a Lady Health Worker (LHW) and patients in rural Punjab.
+
+These transcripts are for evaluating whether quantized Small Language Models can 
+extract clinical entities and detect maternal red flags from noisy, indirect, 
+code-switched Roman Urdu speech.
+
+STRICT RULES YOU MUST FOLLOW FOR EVERY TRANSCRIPT:
+
+LANGUAGE RULES:
+- Write in Roman Urdu (Urdu in Latin script) with natural English code-switching
+- Patients NEVER use clinical terms. They use indirect, euphemistic language:
+  * "bachha gir gaya" (miscarriage), "bara operation" (C-section), "chhota operation" (episiotomy)
+  * "khoon ki kami" (anemia), "sir mein bharipan" (pre-eclampsia headache)
+  * "pani aata hai" / "neeche se kuch aa raha hai" (vaginal discharge)
+  * "tareekh nahi aayi" (missed period/pregnancy), "khushi aa rahi hai" (pregnancy announcement)
+  * "shohar sey miltay waqt" (sexual intercourse), "neechey wali jaga" (vagina)
+  * "pet ke neeche bojh" (pelvic pressure), "pairon mein sujan" (edema)
+  * "aankhon ke saamne machhar" (visual disturbances), "jism toot raha hai" (body aches)
+  * "dil udaas rehta hai" (depression), "rona aata hai" (crying spells)
+  * "rasoli" (any growth - fibroid/cyst/polyp), "haddi ghul rahi hai" (bone dissolving myth for discharge)
+  * "athra" (curse of recurrent miscarriages - folk belief)
+- Include ASR-realistic noise: "haan", "matlab", "woh kya hai na", "achha", incomplete sentences, 
+  self-corrections, "aur... aur...", trailing off
+- Include gestural references: "yahan dard hota hai" (unspecified location), "iss jagah pe"
+
+STRUCTURE RULES:
+- Each transcript must flow through these phases (naturally, not rigidly labeled):
+  1. Greeting & rapport (2-3 turns)
+  2. Personal & medical history (5-8 turns)
+  3. Family history (2-4 turns)  
+  4. Socio-economic context (2-4 turns)
+  5. Previous pregnancies (3-5 turns)
+  6. Current pregnancy & symptoms (5-8 turns) ← red flags go here
+  7. Counseling & follow-up (2-4 turns)
+- MINIMUM 25 turns per transcript, TARGET 30-40 turns
+- Use speaker labels: "LHW:", "Patient:", "Saas:", "Husband:", "[Context]"
+
+REALISM RULES (include at least 3 per transcript, vary which ones):
+- Family member interjection (saas correcting patient, husband calling from other room)
+- Patient hesitation on sensitive topics (pausing, saying "wo... kuch nahi", avoiding)
+- LHW rephrasing when patient doesn't understand
+- Missing information (doesn't remember dates, hasn't done tests, lost reports)
+- Contextual interruptions (child crying, chai offered, phone ringing, goat bleating)
+- Patient contradicting herself (denies symptom first, mentions it later casually)
+- LHW using counseling language ("aap ne fikar nahi karni", "hum mil kar dekhte hain")
+
+RED FLAG RULES:
+- For EXPLICIT transcripts (T-001 to T-020): Red flag symptoms are clearly present
+  in conversation, even if expressed in euphemistic language. An attentive reader 
+  could identify the clinical concern.
+- For IMPLICIT transcripts (T-021 to T-025): Red flag symptoms are buried, 
+  mentioned in passing, attributed to normalcy, or masked within casual conversation. 
+  The patient may actively minimize or the symptom surfaces only through careful 
+  cross-referencing of multiple vague statements.
+
+OUTPUT FORMAT:
+- Start each transcript with a metadata header (see below)
+- Then the raw conversation
+- End each with "--- END TRANSCRIPT ---"
+- Then move to the next transcript immediately
+- Do NOT include any clinical interpretation, EMR, or diagnostic labels within 
+  the conversation text itself
+
+--------------------------------------------------------------
+USER PROMPT (paste this as the user message):
+--------------------------------------------------------------
+
+Generate all 25 transcripts below, one after another, without stopping. For each 
+transcript, first output the metadata block, then the full conversation, then 
+"--- END TRANSCRIPT ---", then proceed to the next.
+
+================================================================================
+TRANSCRIPT SPECIFICATIONS (25 total: 20 EXPLICIT + 5 IMPLICIT)
+================================================================================
+
+--- EXPLICIT RED FLAG TRANSCRIPTS (T-001 to T-020) ---
+
+T-001
+ID: T-001
+Red_Flag_Type: EXPLICIT
+Primary_Condition: Pre-eclampsia
+Secondary_Issues: Obesity (BMI > 30)
+Patient_Age: 28
+Education: Primary (5th class)
+Gravida_Para: G3P2
+Gestational_Age: 34 weeks
+Trimester: 3rd
+Visit_Type: Routine follow-up
+SES: Poor (husband is farmer)
+Family_Structure: Joint family, saas present
+Setting: Patient's home
+Required_Euphemisms: "sir mein bharipan", "pairon mein sujan", "aankhon ke saamne machhar"
+Required_Realism: Family interjection (saas), incomplete info (lost BP report), gestural reference
+Target_Turns: 30-35
+
+T-002
+ID: T-002
+Red_Flag_Type: EXPLICIT
+Primary_Condition: Severe anemia (Hb < 7)
+Secondary_Issues: Malnutrition, previous stillbirth
+Patient_Age: 22
+Education: No formal education
+Gravida_Para: G2P0 (one previous stillbirth)
+Gestational_Age: 26 weeks
+Trimester: 2nd
+Visit_Type: Routine follow-up
+SES: Very poor (husband daily wage laborer)
+Family_Structure: Joint family, saas present
+Setting: LHW health house
+Required_Euphemisms: "khoon ki kami", "jism toot raha hai", "chehra peela ho gaya"
+Required_Realism: Patient hesitation, missing info (no blood test done), contextual interruption (child)
+Target_Turns: 30-35
+
+T-003
+ID: T-003
+Red_Flag_Type: EXPLICIT
+Primary_Condition: Gestational diabetes
+Secondary_Issues: Family history of diabetes, high BMI
+Patient_Age: 35
+Education: Matric
+Gravida_Para: G5P4
+Gestational_Age: 28 weeks
+Trimester: 3rd
+Visit_Type: First visit (just moved to area)
+SES: Lower-middle (husband shopkeeper)
+Family_Structure: Nuclear family
+Setting: Patient's home
+Required_Euphemisms: "baby ko sugar", "baar baar peshab", "bohat pyaas lagti hai"
+Required_Realism: Incomplete info (previous records in other city), LHW rephrasing question, contradiction (says diet is fine but reveals sweets consumption later)
+Target_Turns: 35-40
+
+T-004
+ID: T-004
+Red_Flag_Type: EXPLICIT
+Primary_Condition: Antepartum hemorrhage
+Secondary_Issues: Placenta previa suspected
+Patient_Age: 30
+Education: Middle (8th class)
+Gravida_Para: G4P3
+Gestational_Age: 32 weeks
+Trimester: 3rd
+Visit_Type: Urgent (patient sent message to LHW)
+SES: Poor (husband rickshaw driver)
+Family_Structure: Joint family, husband present
+Setting: Patient's home
+Required_Euphemisms: "neeche se khoon aaya", "pani jaisa bhi aata hai"
+Required_Realism: Husband interjection (worried), patient minimizing ("thoda sa tha"), phone interruption
+Target_Turns: 30-35
+
+T-005
+ID: T-005
+Red_Flag_Type: EXPLICIT
+Primary_Condition: Reduced fetal movement
+Secondary_Issues: Anxiety from previous miscarriage
+Patient_Age: 25
+Education: Intermediate (12th)
+Gravida_Para: G2P0 (one previous miscarriage)
+Gestational_Age: 36 weeks
+Trimester: 3rd
+Visit_Type: Urgent concern
+SES: Lower-middle (husband government clerk)
+Family_Structure: Nuclear family
+Setting: LHW health house
+Required_Euphemisms: "bachha kam hil raha hai", "pehle bohat hilta tha", "darr lagta hai ke phir se na ho jaye" 
+Required_Realism: Patient anxiety visible, missing info (can't remember last movement time), LHW calming patient
+Target_Turns: 28-32
+
+T-006
+ID: T-006
+Red_Flag_Type: EXPLICIT
+Primary_Condition: Preterm labor signs (contractions at 30 weeks)
+Secondary_Issues: UTI
+Patient_Age: 27
+Education: Primary
+Gravida_Para: G3P2
+Gestational_Age: 30 weeks
+Trimester: 3rd
+Visit_Type: Routine (symptoms discovered during visit)
+SES: Poor (agricultural family)
+Family_Structure: Joint family, saas present
+Setting: Patient's home
+Required_Euphemisms: "pet sakht ho jata hai bar bar", "peshab mein jalan", "wave jaisa aata hai"
+Required_Realism: Saas interjection dismissing symptoms ("ye toh hota hai"), LHW disagreeing politely, child interruption
+Target_Turns: 30-35
+
+T-007
+ID: T-007
+Red_Flag_Type: EXPLICIT
+Primary_Condition: PROM (premature rupture of membranes)
+Secondary_Issues: None
+Patient_Age: 24
+Education: No formal education
+Gravida_Para: G1P0 (primigravida)
+Gestational_Age: 35 weeks
+Trimester: 3rd
+Visit_Type: Urgent
+SES: Very poor
+Family_Structure: Joint family, husband abroad (Saudi)
+Setting: Patient's home
+Required_Euphemisms: "pani jaisa beh raha hai control nahi hota", "shalwar bheeg gayi"
+Required_Realism: Saas speaking on patient's behalf, patient shy/quiet, missing info (no ultrasound done)
+Target_Turns: 28-32
+
+T-008
+ID: T-008
+Red_Flag_Type: EXPLICIT
+Primary_Condition: Hyperemesis gravidarum (severe vomiting/dehydration)
+Secondary_Issues: Weight loss
+Patient_Age: 19
+Education: Middle
+Gravida_Para: G1P0 (primigravida, teenager)
+Gestational_Age: 10 weeks
+Trimester: 1st
+Visit_Type: First visit
+SES: Poor (married young, in-laws' home)
+Family_Structure: Joint family, saas dominating conversation
+Setting: Patient's home
+Required_Euphemisms: "kuch bhi khaun ulti ho jati hai", "pani bhi nahi rukta"
+Required_Realism: Saas answering instead of patient, patient barely speaking, LHW trying to address patient directly, teen discomfort
+Target_Turns: 30-35
+
+T-009
+ID: T-009
+Red_Flag_Type: EXPLICIT
+Primary_Condition: UTI with vaginal infection
+Secondary_Issues: Poor hygiene awareness
+Patient_Age: 32
+Education: No formal education
+Gravida_Para: G6P5
+Gestational_Age: 20 weeks
+Trimester: 2nd
+Visit_Type: Routine follow-up
+SES: Very poor (6 children, crowded home)
+Family_Structure: Joint family
+Setting: Patient's home
+Required_Euphemisms: "neechey jalan hoti hai", "safed pani aata hai aur badboo bhi", "pishab wali jaga"
+Required_Realism: Multiple children interrupting, patient embarrassment about symptoms, gestural reference for location
+Target_Turns: 28-32
+
+T-010
+ID: T-010
+Red_Flag_Type: EXPLICIT
+Primary_Condition: Recurrent miscarriages (3 previous losses)
+Secondary_Issues: Folk belief (athra), psychological distress
+Patient_Age: 26
+Education: Primary
+Gravida_Para: G4P0 (three previous miscarriages)
+Gestational_Age: 8 weeks
+Trimester: 1st
+Visit_Type: First visit (early pregnancy just confirmed)
+SES: Poor
+Family_Structure: Joint family, saas blaming patient
+Setting: LHW health house
+Required_Euphemisms: "bachha gir gaya" (x3 times), "athra lag gaya hai" (folk belief), "pir sahab ne kaha"
+Required_Realism: Saas blaming patient, folk belief discussion, patient crying, LHW navigating between cultural sensitivity and medical advice
+Target_Turns: 35-40
+
+T-011
+ID: T-011
+Red_Flag_Type: EXPLICIT
+Primary_Condition: Postpartum hemorrhage
+Secondary_Issues: Retained placenta suspected
+Patient_Age: 29
+Education: Middle
+Gravida_Para: G3P3 (just delivered 3 days ago)
+Gestational_Age: Postpartum (Day 3)
+Trimester: Postpartum
+Visit_Type: Postpartum home visit
+SES: Poor
+Family_Structure: Nuclear family
+Setting: Patient's home
+Required_Euphemisms: "khoon band nahi ho raha", "pet mein dard hai delivery ke baad"
+Required_Realism: Patient weak/lying down, LHW checking on newborn simultaneously, incomplete info (home delivery by dai)
+Target_Turns: 28-32
+
+T-012
+ID: T-012
+Red_Flag_Type: EXPLICIT
+Primary_Condition: Postpartum depression
+Secondary_Issues: Sleep deprivation, lack of family support
+Patient_Age: 23
+Education: Matric
+Gravida_Para: G1P1 (first child, 6 weeks postpartum)
+Gestational_Age: Postpartum (Week 6)
+Trimester: Postpartum
+Visit_Type: Routine postpartum follow-up
+SES: Lower-middle
+Family_Structure: Nuclear family (husband working long hours)
+Setting: Patient's home
+Required_Euphemisms: "dil udaas rehta hai", "rona aata hai", "baby ke sath dil nahi lagta"
+Required_Realism: Patient initially says "sab theek hai", symptoms emerge slowly through conversation, baby crying during visit
+Target_Turns: 30-35
+
+T-013
+ID: T-013
+Red_Flag_Type: EXPLICIT
+Primary_Condition: Ectopic pregnancy concern
+Secondary_Issues: Previous pelvic inflammatory disease
+Patient_Age: 31
+Education: Primary
+Gravida_Para: G3P2
+Gestational_Age: 6 weeks (just found out)
+Trimester: 1st
+Visit_Type: Urgent concern
+SES: Poor
+Family_Structure: Joint family
+Setting: LHW health house
+Required_Euphemisms: "ek side pet mein bohat tez dard", "thodi si bleeding", "stick use ki positive aaya"
+Required_Realism: Patient very anxious, missing info (no ultrasound yet), LHW urgently advising hospital visit
+Target_Turns: 25-30
+
+T-014
+ID: T-014
+Red_Flag_Type: EXPLICIT
+Primary_Condition: Hypertension (chronic, pre-existing)
+Secondary_Issues: Non-adherence to medication
+Patient_Age: 38
+Education: No formal education
+Gravida_Para: G7P6
+Gestational_Age: 22 weeks
+Trimester: 2nd
+Visit_Type: Routine follow-up
+SES: Very poor (grand multipara, large family)
+Family_Structure: Joint family
+Setting: Patient's home
+Required_Euphemisms: "BP ki dawa", "sir chakkar aate hain", "dawa bhool jati hoon"
+Required_Realism: Patient admits skipping medication, many children present, LHW counseling on adherence, patient fatalistic ("Allah ki marzi")
+Target_Turns: 30-35
+
+T-015
+ID: T-015
+Red_Flag_Type: EXPLICIT
+Primary_Condition: Vaginal prolapse symptoms
+Secondary_Issues: Urinary incontinence, previous multiple vaginal deliveries
+Patient_Age: 40
+Education: No formal education
+Gravida_Para: G8P7
+Gestational_Age: Not pregnant (postpartum 2 years, but presenting to LHW)
+Trimester: N/A (gynecological complaint)
+Visit_Type: First visit (new complaint)
+SES: Very poor
+Family_Structure: Joint family
+Setting: Patient's home
+Required_Euphemisms: "andar baahir aa raha hai", "khansi karti hun to peshab nikal jata hai", "neeche se kuch nikalta hua mehsoos"
+Required_Realism: Extreme embarrassment, patient can barely describe, gestural communication dominant, LHW being very gentle
+Target_Turns: 28-32
+
+T-016
+ID: T-016
+Red_Flag_Type: EXPLICIT
+Primary_Condition: Suspected breech presentation at 36 weeks
+Secondary_Issues: Previous C-section scar
+Patient_Age: 29
+Education: Matric
+Gravida_Para: G3P2 (one previous C-section, one SVD)
+Gestational_Age: 36 weeks
+Trimester: 3rd
+Visit_Type: Routine follow-up
+SES: Lower-middle
+Family_Structure: Nuclear family
+Setting: LHW health house
+Required_Euphemisms: "bachha ultaa hai", "pehle bara operation hua tha"
+Required_Realism: Patient worried about repeat C-section, LHW explaining need for ultrasound, patient asking about "normal" delivery chances
+Target_Turns: 28-32
+
+T-017
+ID: T-017
+Red_Flag_Type: EXPLICIT
+Primary_Condition: Severe infection during pregnancy (high fever + abdominal pain)
+Secondary_Issues: No prior ANC visits
+Patient_Age: 20
+Education: No formal education
+Gravida_Para: G1P0 (primigravida)
+Gestational_Age: 5 months (patient unsure of exact dates)
+Trimester: 2nd
+Visit_Type: LHW noticed patient during routine household rounds
+SES: Very poor (newly married, in-laws' village)
+Family_Structure: Joint family, saas gatekeeping
+Setting: Patient's home
+Required_Euphemisms: "bukhar hai aur jism toot raha hai", "pet mein bhi dard hai"
+Required_Realism: Saas initially refuses LHW entry ("wo theek hai"), LHW persists gently, patient hasn't seen any doctor yet, no idea about gestational age
+Target_Turns: 32-38
+
+T-018
+ID: T-018
+Red_Flag_Type: EXPLICIT
+Primary_Condition: Gestational hypertension progressing (new onset at 28 weeks)
+Secondary_Issues: Protein in urine (if tested)
+Patient_Age: 33
+Education: Middle
+Gravida_Para: G4P3
+Gestational_Age: 28 weeks
+Trimester: 3rd
+Visit_Type: Routine follow-up
+SES: Poor
+Family_Structure: Joint family
+Setting: Patient's home
+Required_Euphemisms: "BP barh gaya hai", "sir mein dard rehta hai", "haath pairon mein sujan"
+Required_Realism: Patient had BP checked at pharmacy ("medical store wale ne check kiya"), doesn't have the reading written down, LHW frustrated at incomplete data
+Target_Turns: 30-35
+
+T-019
+ID: T-019
+Red_Flag_Type: EXPLICIT
+Primary_Condition: Threatened miscarriage (bleeding at 10 weeks)
+Secondary_Issues: History of one previous miscarriage
+Patient_Age: 27
+Education: Intermediate
+Gravida_Para: G3P1 (one live child, one previous loss)
+Gestational_Age: 10 weeks
+Trimester: 1st
+Visit_Type: Urgent (patient called LHW)
+SES: Lower-middle
+Family_Structure: Nuclear family
+Setting: LHW health house
+Required_Euphemisms: "halka khoon aaya", "pehle bhi ek dafa bachha gir gaya tha", "bohat darr lag raha hai"
+Required_Realism: Patient very anxious, husband dropped her off and left, LHW checking if bed rest is being followed, referral discussion
+Target_Turns: 28-32
+
+T-020
+ID: T-020
+Red_Flag_Type: EXPLICIT
+Primary_Condition: Breastfeeding complications (mastitis with fever)
+Secondary_Issues: Cracked nipples, baby not latching properly
+Patient_Age: 21
+Education: Primary
+Gravida_Para: G1P1 (first child, 2 weeks postpartum)
+Gestational_Age: Postpartum (Day 14)
+Trimester: Postpartum
+Visit_Type: Postpartum follow-up
+SES: Poor
+Family_Structure: Joint family, saas advising traditional remedies
+Setting: Patient's home
+Required_Euphemisms: "doodh kam aa raha hai", "breast mein sujan aur dard", "bacha apnay sath lagane mein mushkil"
+Required_Realism: Saas suggesting "desi totkay" (home remedies), LHW gently countering with medical advice, baby present and crying, patient in pain
+Target_Turns: 28-32
+
+
+--- IMPLICIT/SUBTLE RED FLAG TRANSCRIPTS (T-021 to T-025) ---
+
+T-021
+ID: T-021
+Red_Flag_Type: IMPLICIT
+Primary_Condition: Early pre-eclampsia (symptoms attributed to normal pregnancy)
+Secondary_Issues: None apparent
+Patient_Age: 26
+Education: Middle
+Gravida_Para: G2P1
+Gestational_Age: 30 weeks
+Trimester: 3rd
+Visit_Type: Routine follow-up (patient says she's fine)
+SES: Poor
+Family_Structure: Joint family
+Setting: Patient's home
+IMPLICIT_STRATEGY: Patient mentions headaches casually ("wo toh hota hi hai garmi mein"), slight ankle swelling dismissed as "paani zyada peeti hoon", and blurred vision attributed to phone use ("WhatsApp bohat chalati hoon"). No single statement is alarming; the pattern across the conversation is. BP has not been checked in weeks.
+Required_Realism: Patient genuinely believes she's fine, saas agrees ("sab theek hai"), LHW doesn't push hard enough on individual symptoms
+Target_Turns: 30-35
+
+T-022
+ID: T-022
+Red_Flag_Type: IMPLICIT
+Primary_Condition: Concealed domestic violence presenting as repeated "falls"
+Secondary_Issues: Psychological distress masked as tiredness
+Patient_Age: 24
+Education: No formal education
+Gravida_Para: G2P1
+Gestational_Age: 20 weeks
+Trimester: 2nd
+Visit_Type: Routine follow-up
+SES: Very poor
+Family_Structure: Joint family, husband controlling
+Setting: Patient's home (husband briefly present then leaves)
+IMPLICIT_STRATEGY: Patient has bruises she attributes to "gir gayi thi" (I fell). Mentions "neend nahi aati" and "darr lagta hai" without context. Only after husband leaves does she become slightly more open but still doesn't disclose directly. LHW senses something but patient shuts down ("sab theek hai baji").
+Required_Realism: Husband's brief presence changes patient's demeanor entirely, patient contradicts herself, LHW notices bruises but patient deflects
+Target_Turns: 32-38
+
+T-023
+ID: T-023
+Red_Flag_Type: IMPLICIT
+Primary_Condition: Undiagnosed gestational diabetes (symptoms scattered across casual conversation)
+Secondary_Issues: Large baby in previous pregnancy (went unconnected)
+Patient_Age: 34
+Education: Primary
+Gravida_Para: G4P3
+Gestational_Age: 24 weeks
+Trimester: 2nd
+Visit_Type: Routine follow-up
+SES: Lower-middle
+Family_Structure: Nuclear family
+Setting: LHW health house
+IMPLICIT_STRATEGY: Patient mentions "bohat pyaas lagti hai" while pouring water, mentions frequent urination as a joke ("bathroom ke chakkar lagate rehti hoon"), mentions her last baby was "bohat bada" (4.2 kg) in passing during previous pregnancy discussion, and has family history of diabetes that only emerges when LHW asks about mother's health ("ammi ko sugar hai"). No single statement triggers alarm, but the constellation of polydipsia + polyuria + macrosomia + family history = classic GDM screen indication.
+Required_Realism: Patient treats each symptom as normal/unrelated, LHW doesn't connect the dots explicitly, conversation flows naturally without alarm
+Target_Turns: 30-35
+
+T-024
+ID: T-024
+Red_Flag_Type: IMPLICIT
+Primary_Condition: Gradual onset severe anemia (compensated, patient functional)
+Secondary_Issues: Hookworm exposure likely (walks barefoot, farming area)
+Patient_Age: 29
+Education: No formal education
+Gravida_Para: G5P4
+Gestational_Age: 32 weeks
+Trimester: 3rd
+Visit_Type: Routine follow-up
+SES: Very poor
+Family_Structure: Joint family
+Setting: Patient's home
+IMPLICIT_STRATEGY: Patient says she's "theek" but LHW notices she looks pale ("aap ka chehra zara peela lag raha hai"). Patient dismisses it ("ye toh mera rang hai"). Mentions getting tired climbing 2 stairs, breathlessness while cooking ("haan thodi saans phoolti hai lekin wo toh hoti hai itne bachchon ke baad"). Hasn't had a blood test in entire pregnancy. Eats roti and chai mostly. No iron tablets being taken ("wo dawai diye the lekin khatam ho gayi, nahi li phir").
+Required_Realism: Patient completely normalized her symptoms, no test data available, LHW has to rely entirely on observation and conversation, patient resistant to hospital visit ("kaun jayega hospital, bachche kaun dekhega")
+Target_Turns: 32-38
+
+T-025
+ID: T-025
+Red_Flag_Type: IMPLICIT
+Primary_Condition: Reduced fetal movement (patient hasn't noticed the change)
+Secondary_Issues: Possible IUGR (small fundal height mentioned by previous doctor but patient didn't understand)
+Patient_Age: 31
+Education: Primary
+Gravida_Para: G3P2
+Gestational_Age: 37 weeks
+Trimester: 3rd
+Visit_Type: Routine follow-up
+SES: Poor
+Family_Structure: Nuclear (husband works in city, comes weekends)
+Setting: Patient's home
+IMPLICIT_STRATEGY: LHW asks about baby's movements. Patient says "haan hilta hai" but when probed further says "pehle zyada karta tha, ab kam hai shayad" then immediately says "lekin raat ko hilta hai thoda." Also mentions a previous doctor said "bachha thoda chhota hai" but patient interprets this as "chhota maheena" (early months) not growth restriction. The disconnect between patient's understanding and clinical reality is the challenge.
+Required_Realism: Patient misinterpreted doctor's previous assessment, LHW must probe carefully, patient answers are vague and sometimes contradictory, no recent ultrasound
+Target_Turns: 30-35
+
+================================================================================
+FINAL INSTRUCTION TO THE LLM:
+================================================================================
+
+Generate all 25 transcripts now, sequentially from T-001 to T-025. Each transcript 
+must include the metadata header followed by the full conversation. Do not 
+summarize, abbreviate, or skip any transcript. Do not include any clinical 
+interpretation, diagnosis, or EMR within the transcript body. The transcripts 
+are RAW CONVERSATIONS ONLY.
+
+After generating all 25, output a summary table listing:
+| ID | Primary Condition | Red Flag Type | Patient Age | Gravida | Trimester | Turns |
+
+Begin generation now with T-001.

@@ -1,0 +1,89 @@
+{
+  "medical_history": {
+    "age": "36",
+    "gravida": "5",
+    "para": "4",
+    "gestational_age_weeks": "33",
+    "lmp": "",
+    "conditions": [
+      "Placenta previa"
+    ],
+    "allergies": "",
+    "medications": [],
+    "menstrual_regularity": "",
+    "contraception_history": ""
+  },
+  "family_history": {
+    "maternal": [],
+    "paternal": [],
+    "husband_family": [],
+    "consanguinity": ""
+  },
+  "socio_economic": {
+    "family_type": "",
+    "husband_education": "",
+    "husband_blood_group": "",
+    "husband_occupation": "",
+    "abuse_screen": "",
+    "mental_health_screen": ""
+  },
+  "previous_pregnancies": [
+    {
+      "pregnancy_number": 1,
+      "outcome": "Live birth",
+      "mode_of_delivery": "",
+      "complications": [],
+      "baby_outcome": "Alive",
+      "baby_weight_kg": ""
+    },
+    {
+      "pregnancy_number": 2,
+      "outcome": "Live birth",
+      "mode_of_delivery": "",
+      "complications": [],
+      "baby_outcome": "Alive",
+      "baby_weight_kg": ""
+    },
+    {
+      "pregnancy_number": 3,
+      "outcome": "Live birth",
+      "mode_of_delivery": "",
+      "complications": [],
+      "baby_outcome": "Alive",
+      "baby_weight_kg": ""
+    },
+    {
+      "pregnancy_number": 4,
+      "outcome": "Live birth",
+      "mode_of_delivery": "",
+      "complications": [],
+      "baby_outcome": "Alive",
+      "baby_weight_kg": ""
+    }
+  ],
+  "present_pregnancy": {
+    "trimester": "3rd",
+    "symptoms": [],
+    "fundal_height_cm": "",
+    "presentation": "",
+    "engagement": "",
+    "fetal_movement": "",
+    "edema": "",
+    "ultrasound_findings": "Placenta previa",
+    "urine_dipstick": "",
+    "food_intake": ""
+  },
+  "proposed_plan": {
+    "diagnosis": "Placenta previa",
+    "prescriptions": [],
+    "investigations_ordered": [],
+    "follow_up": "Admission around 34 weeks",
+    "referral": ""
+  },
+  "triage_status": "URGENT",
+  "red_flags_present": [
+    "Placenta previa",
+    "Planned admission",
+    "Bleeding risk"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "medical_history": {
+    "age": "24",
+    "gravida": "1",
+    "para": "0",
+    "gestational_age_weeks": "28",
+    "lmp": "",
+    "conditions": [
+      "Preterm labor with PPROM"
+    ],
+    "allergies": "",
+    "medications": [],
+    "menstrual_regularity": "",
+    "contraception_history": ""
+  },
+  "family_history": {
+    "maternal": [],
+    "paternal": [],
+    "husband_family": [],
+    "consanguinity": ""
+  },
+  "socio_economic": {
+    "family_type": "",
+    "husband_education": "",
+    "husband_blood_group": "",
+    "husband_occupation": "",
+    "abuse_screen": "",
+    "mental_health_screen": ""
+  },
+  "previous_pregnancies": [],
+  "present_pregnancy": {
+    "trimester": "2nd",
+    "symptoms": [
+      "Preterm labor with PPROM"
+    ],
+    "fundal_height_cm": "",
+    "presentation": "",
+    "engagement": "",
+    "fetal_movement": "",
+    "edema": "",
+    "ultrasound_findings": "",
+    "urine_dipstick": "",
+    "food_intake": ""
+  },
+  "proposed_plan": {
+    "diagnosis": "Preterm labor with PPROM",
+    "prescriptions": [],
+    "investigations_ordered": [],
+    "follow_up": "Urgent referral",
+    "referral": "Hospital"
+  },
+  "triage_status": "URGENT",
+  "red_flags_present": [
+    "Preterm labor with PPROM",
+    "Watery leakage"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "medical_history": {
+    "age": "24",
+    "gravida": "2",
+    "para": "1",
+    "gestational_age_weeks": "22",
+    "lmp": "",
+    "conditions": [
+      "Thalassemia trait",
+      "Iron deficiency anemia"
+    ],
+    "allergies": "",
+    "medications": [],
+    "menstrual_regularity": "",
+    "contraception_history": ""
+  },
+  "family_history": {
+    "maternal": [],
+    "paternal": [
+      "Thalassemia carrier"
+    ],
+    "husband_family": [],
+    "consanguinity": ""
+  },
+  "socio_economic": {
+    "family_type": "",
+    "husband_education": "",
+    "husband_blood_group": "",
+    "husband_occupation": "",
+    "abuse_screen": "",
+    "mental_health_screen": ""
+  },
+  "previous_pregnancies": [
+    {
+      "pregnancy_number": 1,
+      "outcome": "Live birth",
+      "mode_of_delivery": "",
+      "complications": [],
+      "baby_outcome": "Alive",
+      "baby_weight_kg": ""
+    }
+  ],
+  "present_pregnancy": {
+    "trimester": "2nd",
+    "symptoms": [],
+    "fundal_height_cm": "",
+    "presentation": "",
+    "engagement": "",
+    "fetal_movement": "",
+    "edema": "",
+    "ultrasound_findings": "",
+    "urine_dipstick": "",
+    "food_intake": ""
+  },
+  "proposed_plan": {
+    "diagnosis": "Thalassemia trait with anemia",
+    "prescriptions": [],
+    "investigations_ordered": [],
+    "follow_up": "Genetic counseling, obstetric follow-up",
+    "referral": ""
+  },
+  "triage_status": "URGENT",
+  "red_flags_present": [
+    "Hereditary anemia",
+    "Carrier status",
+    "Family counseling needed"
+  ]
+}

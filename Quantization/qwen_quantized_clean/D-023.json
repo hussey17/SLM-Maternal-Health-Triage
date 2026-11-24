@@ -1,0 +1,101 @@
+{
+  "medical_history": {
+    "age": "38",
+    "gravida": "6",
+    "para": "5",
+    "gestational_age_weeks": "32",
+    "lmp": "",
+    "conditions": [
+      "Gestational diabetes mellitus"
+    ],
+    "allergies": "",
+    "medications": [],
+    "menstrual_regularity": "",
+    "contraception_history": ""
+  },
+  "family_history": {
+    "maternal": [],
+    "paternal": [],
+    "husband_family": [],
+    "consanguinity": ""
+  },
+  "socio_economic": {
+    "family_type": "Crowded",
+    "husband_education": "",
+    "husband_blood_group": "",
+    "husband_occupation": "",
+    "abuse_screen": "",
+    "mental_health_screen": ""
+  },
+  "previous_pregnancies": [
+    {
+      "pregnancy_number": 1,
+      "outcome": "Live birth",
+      "mode_of_delivery": "",
+      "complications": [],
+      "baby_outcome": "Alive",
+      "baby_weight_kg": ""
+    },
+    {
+      "pregnancy_number": 2,
+      "outcome": "Live birth",
+      "mode_of_delivery": "",
+      "complications": [],
+      "baby_outcome": "Alive",
+      "baby_weight_kg": ""
+    },
+    {
+      "pregnancy_number": 3,
+      "outcome": "Live birth",
+      "mode_of_delivery": "",
+      "complications": [],
+      "baby_outcome": "Alive",
+      "baby_weight_kg": ""
+    },
+    {
+      "pregnancy_number": 4,
+      "outcome": "Live birth",
+      "mode_of_delivery": "",
+      "complications": [],
+      "baby_outcome": "Alive",
+      "baby_weight_kg": ""
+    },
+    {
+      "pregnancy_number": 5,
+      "outcome": "Live birth",
+      "mode_of_delivery": "",
+      "complications": [],
+      "baby_outcome": "Alive",
+      "baby_weight_kg": ""
+    }
+  ],
+  "present_pregnancy": {
+    "trimester": "3rd",
+    "symptoms": [
+      "Gestational diabetes mellitus"
+    ],
+    "fundal_height_cm": "",
+    "presentation": "",
+    "engagement": "",
+    "fetal_movement": "Present",
+    "edema": "",
+    "ultrasound_findings": "",
+    "urine_dipstick": "",
+    "food_intake": "Poor dietary control"
+  },
+  "proposed_plan": {
+    "diagnosis": "Gestational diabetes mellitus",
+    "prescriptions": [],
+    "investigations_ordered": [
+      "GDM follow-up",
+      "Urine dipstick"
+    ],
+    "follow_up": "Repeat GDM management",
+    "referral": ""
+  },
+  "triage_status": "URGENT",
+  "red_flags_present": [
+    "GDM",
+    "Poor dietary control"
+  ]
+}

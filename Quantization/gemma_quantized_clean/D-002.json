@@ -1,0 +1,69 @@
+{
+  "medical_history": {
+    "age": "22",
+    "gravida": "1",
+    "para": "0",
+    "gestational_age_weeks": "30",
+    "lmp": "",
+    "conditions": [
+      "Severe pre-eclampsia",
+      "Hypertension",
+      "Proteinuria"
+    ],
+    "allergies": "",
+    "medications": [],
+    "menstrual_regularity": "",
+    "contraception_history": ""
+  },
+  "family_history": {
+    "maternal": [],
+    "paternal": [],
+    "husband_family": [],
+    "consanguinity": ""
+  },
+  "socio_economic": {
+    "family_type": "",
+    "husband_education": "",
+    "husband_blood_group": "",
+    "husband_occupation": "",
+    "abuse_screen": "",
+    "mental_health_screen": ""
+  },
+  "previous_pregnancies": [],
+  "present_pregnancy": {
+    "trimester": "3rd",
+    "symptoms": [
+      "Severe headache",
+      "Visual floaters",
+      "Visual floaters",
+      "Hypertension",
+      "Proteinuria"
+    ],
+    "fundal_height_cm": "",
+    "presentation": "",
+    "engagement": "",
+    "fetal_movement": "Present",
+    "edema": "",
+    "ultrasound_findings": "",
+    "urine_dipstick": "Proteinuria",
+    "food_intake": ""
+  },
+  "proposed_plan": {
+    "diagnosis": "Severe pre-eclampsia",
+    "prescriptions": [],
+    "investigations_ordered": [
+      "Urine protein",
+      "Blood pressure",
+      "Blood work"
+    ],
+    "follow_up": "Urgent referral",
+    "referral": "Hospital admission"
+  },
+  "triage_status": "EMERGENCY",
+  "red_flags_present": [
+    "Severe pre-eclampsia",
+    "Hypertension",
+    "Proteinuria",
+    "Visual floaters"
+  ]
+}

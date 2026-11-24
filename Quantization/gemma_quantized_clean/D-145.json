@@ -1,0 +1,80 @@
+{
+  "medical_history": {
+    "age": "34",
+    "gravida": "4",
+    "para": "3",
+    "gestational_age_weeks": "35",
+    "lmp": "",
+    "conditions": [
+      "Malpresentation"
+    ],
+    "allergies": "",
+    "medications": [],
+    "menstrual_regularity": "",
+    "contraception_history": ""
+  },
+  "family_history": {
+    "maternal": [],
+    "paternal": [],
+    "husband_family": [],
+    "consanguinity": ""
+  },
+  "socio_economic": {
+    "family_type": "",
+    "husband_education": "",
+    "husband_blood_group": "",
+    "husband_occupation": "",
+    "abuse_screen": "",
+    "mental_health_screen": ""
+  },
+  "previous_pregnancies": [
+    {
+      "pregnancy_number": 1,
+      "outcome": "Live birth",
+      "mode_of_delivery": "",
+      "complications": [],
+      "baby_outcome": "Alive",
+      "baby_weight_kg": ""
+    },
+    {
+      "pregnancy_number": 2,
+      "outcome": "Live birth",
+      "mode_of_delivery": "",
+      "complications": [],
+      "baby_outcome": "Alive",
+      "baby_weight_kg": ""
+    },
+    {
+      "pregnancy_number": 3,
+      "outcome": "Live birth",
+      "mode_of_delivery": "",
+      "complications": [],
+      "baby_outcome": "Alive",
+      "baby_weight_kg": ""
+    }
+  ],
+  "present_pregnancy": {
+    "trimester": "3rd",
+    "symptoms": [],
+    "fundal_height_cm": "",
+    "presentation": "Transverse",
+    "engagement": "",
+    "fetal_movement": "",
+    "edema": "",
+    "ultrasound_findings": "",
+    "urine_dipstick": "",
+    "food_intake": ""
+  },
+  "proposed_plan": {
+    "diagnosis": "Malpresentation at 35 weeks",
+    "prescriptions": [],
+    "investigations_ordered": [],
+    "follow_up": "Planned delivery at 38 weeks",
+    "referral": ""
+  },
+  "triage_status": "URGENT",
+  "red_flags_present": [
+    "Malpresentation",
+    "Planned delivery at 38 weeks"
+  ]
+}

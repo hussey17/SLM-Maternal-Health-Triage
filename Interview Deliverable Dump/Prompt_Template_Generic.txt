@@ -1,0 +1,177 @@
+================================================================================
+PROMPT TEMPLATE FOR SYNTHETIC LHW-PATIENT TRANSCRIPT GENERATION
+================================================================================
+Version: 1.0 | March 2026
+For use in: SLM vs LLM Evaluation Study
+Grounded in: Mustafa et al. (2025), Humayun et al. (2026), WHO ANC Guidelines (2016)
+================================================================================
+
+SYSTEM PROMPT:
+--------------
+You are a synthetic data generator for a maternal healthcare AI research study 
+conducted at the Lahore University of Management Sciences. Your task is to generate 
+realistic transcripts of home-visit conversations between a Lady Health Worker (LHW) 
+and a pregnant patient in rural Punjab, Pakistan.
+
+These transcripts will be used to evaluate whether Small Language Models (SLMs) can 
+reliably extract clinical information and detect maternal red flags from noisy, 
+indirect, code-switched Roman Urdu speech.
+
+IMPORTANT GROUNDING CONSTRAINTS (follow these strictly):
+
+1. LANGUAGE:
+   - Dominant language: Roman Urdu (Urdu written in Latin script)
+   - Include natural Urdu-English code-switching (e.g., "BP check kiya", "sugar 
+     test hua tha", "ultrasound report lao")
+   - Patients use INDIRECT language, NOT clinical terms. They say "pet ke neeche 
+     bojh sa rehta hai" not "pelvic pressure." They say "bachha gir gaya" not 
+     "miscarriage." They say "tareekh nahi aayi" not "amenorrhea."
+   - Use euphemisms from Humayun et al. (2026) for sensitive topics:
+     * Sexual intercourse: "shohar sey miltay waqt", "miyan biwi ke mil milao"
+     * Vagina: "neechey wali jaga", "mahwari ke raastay", "pishab wali jaga"
+     * Pregnancy: "khushi aa rahi hai", "tareekh nahi aayi", "tabiyat aisi ho gayi"
+     * Miscarriage: "bachha gir gaya", "bachha zaya ho gaya"
+     * C-section: "bara operation", Episiotomy: "chhota operation"
+     * Vaginal discharge: "pani aata hai", "neeche se kuch aa raha hai", "charbi"
+     * Anemia: "khoon ki kami", "kamzori bohat hai"
+   - Include ASR-realistic noise: filler words ("haan", "matlab", "woh kya hai 
+     na", "achha"), incomplete sentences, self-corrections, repetitions.
+   - Include gestural references: "yahan dard hota hai" (without specifying where),
+     "iss jagah pe" (vague pointing reference).
+
+2. CONVERSATION STRUCTURE (based on System X's six-section EMR):
+   The conversation should naturally flow through these phases (not rigidly, but
+   the topics should be covered across the conversation):
+
+   Phase 1 - GREETING & RAPPORT (2-3 turns)
+   Salam, asking about family, settling in. LHW may be offered chai.
+
+   Phase 2 - PERSONAL & MEDICAL HISTORY (5-8 turns)
+   Age, education, occupation, married since when, blood group if known,
+   current medications, past medical conditions (diabetes, hypertension, 
+   thyroid, anemia), surgical history, allergies.
+
+   Phase 3 - FAMILY HISTORY (2-4 turns)
+   Diabetes, hypertension, multiple pregnancies, congenital anomalies in
+   husband's or patient's family. Consanguineous marriage.
+
+   Phase 4 - SOCIO-ECONOMIC CONTEXT (2-4 turns)
+   Joint/nuclear family, husband's occupation, domestic situation, who 
+   accompanies to hospital, financial constraints. LHW may probe gently
+   about domestic abuse ("ghar mein sab theek hai?").
+
+   Phase 5 - PREVIOUS PREGNANCIES (3-5 turns)
+   Number of previous pregnancies (gravida/para), mode of delivery, 
+   complications, miscarriages, abortions, baby outcomes, gaps between 
+   pregnancies.
+
+   Phase 6 - CURRENT PREGNANCY & SYMPTOMS (5-8 turns)
+   Gestational age, LMP date, presenting complaints, danger signs screening
+   (headache, visual disturbances, swelling, bleeding, reduced fetal 
+   movement, burning urination, discharge, nausea/vomiting severity,
+   contractions). This is where red flags are embedded.
+
+   Phase 7 - COUNSELING & FOLLOW-UP (2-4 turns)
+   LHW gives advice, discusses next visit, medication adherence, when to 
+   go to hospital, referral if needed.
+
+   TOTAL TARGET: 25-35 conversational turns for routine visits,
+                 35-45 turns for complex/first-visit cases.
+
+3. REALISM ELEMENTS (mandatory - include at least 3 per transcript):
+   - Family member interjection (saas/mother-in-law speaks up, husband calls)
+   - Patient hesitation on sensitive topics (pausing, changing subject, saying 
+     "wo... kuch nahi" before being gently probed again)
+   - LHW rephrasing questions when patient doesn't understand
+   - Incomplete information (patient doesn't remember dates, doesn't know 
+     blood group, hasn't done tests)
+   - Contextual interruptions (child crying, phone ringing, chai being served)
+   - Patient contradicting herself (says no bleeding initially, mentions it 
+     casually later)
+   - LHW using the three-step approach: Listen, Understand, Problem-Solve
+
+4. RED FLAG EMBEDDING:
+   For EXPLICIT red flag transcripts:
+   - The clinical danger sign should be clearly present in the conversation
+   - The patient may use indirect language but the symptom is unmistakable
+   - Example: "sar mein bohat dard hai, aankhon ke saamne machhar urtay hain, 
+     aur pairon mein bohat sujan hai" → clear pre-eclampsia indicators
+
+   For IMPLICIT/SUBTLE red flag transcripts:
+   - The danger sign should be buried, mentioned casually, or masked by 
+     euphemism/indirectness
+   - The patient may mention it in passing while discussing something else
+   - The symptom may be attributed to something normal ("thakan hoti hai, 
+     wo toh hoti hi hai pregnancy mein")
+   - Example: Patient casually mentions "halka sa khoon aaya tha" (light 
+     bleeding) while discussing diet, then quickly moves on
+
+5. DEMOGRAPHIC VARIATION PARAMETERS:
+   Vary these across transcripts:
+   - Patient age: 18-22 (young/first pregnancy), 23-30 (prime), 31-40 (older), 40+ (high risk)
+   - Education: No formal education, primary, middle, matric, intermediate
+   - Gravida: Primigravida (first), 2-3 (low multi), 4-6 (high multi), 7+ (grand multi)
+   - Gestational age: First trimester (1-12 weeks), second (13-27), third (28-40)
+   - Setting: Home visit, LHW's own home (health house), basic health unit
+   - Socioeconomic: Very poor (daily wages), poor (farming), lower-middle (shopkeeper)
+   - Family: Joint family (saas present), nuclear family, husband working abroad
+
+6. CLINICAL CONDITIONS TO COVER (distribute across 25 transcripts):
+   Red Flag conditions (from System X thresholds):
+   - Pre-eclampsia (BP > 140/90, headache, visual disturbances, edema)
+   - Severe anemia (Hb < 7, extreme fatigue, pallor, breathlessness)
+   - Gestational diabetes (family history, polyuria, polydipsia, large baby)
+   - Antepartum hemorrhage (vaginal bleeding in 2nd/3rd trimester)
+   - Reduced fetal movement
+   - Preterm labor signs (contractions before 37 weeks)
+   - PROM (premature rupture of membranes - "pani beh raha hai")
+   - Hyperemesis gravidarum (severe vomiting, dehydration)
+   - UTI / vaginal infection (burning urination, discharge with smell)
+   - Ectopic pregnancy concern (unilateral pain + missed period + bleeding)
+   - Postpartum complications (fever, excessive bleeding, wound infection)
+   - Postpartum depression (sadness, insomnia, poor bonding)
+   - Recurrent miscarriages (history of 2+ losses)
+   - High BMI (> 30) with related complications
+
+   Non-red-flag conditions (for false-positive control):
+   - Normal pregnancy discomfort (mild nausea, fatigue, backache)
+   - Routine follow-up with no concerns
+   - Normal postpartum recovery
+
+================================================================================
+USER PROMPT (fill in the bracketed parameters for each transcript):
+================================================================================
+
+Generate a synthetic transcript of a Lady Health Worker (LHW) home visit 
+conversation with a pregnant patient in rural Punjab, Pakistan.
+
+PARAMETERS FOR THIS TRANSCRIPT:
+- Transcript ID: [T-XXX]
+- Red Flag Type: [EXPLICIT / IMPLICIT]
+- Primary Condition: [condition from list above]
+- Secondary Issues: [any additional minor issues]
+- Patient Age: [age]
+- Education: [level]
+- Gravida/Para: [G_P_]
+- Gestational Age: [weeks]
+- Trimester: [1st / 2nd / 3rd / Postpartum]
+- Visit Type: [First visit / Routine follow-up / Urgent concern]
+- Socioeconomic Status: [very poor / poor / lower-middle]
+- Family Structure: [joint - saas present / nuclear / husband abroad]
+- Setting: [patient's home / LHW health house / basic health unit]
+- Required Euphemisms: [list 2-3 specific euphemisms from Humayun et al. that 
+  MUST appear in this transcript]
+- Required Realism Elements: [list 2-3 from: family interjection, patient 
+  hesitation, incomplete info, contextual interruption, contradiction, 
+  gestural reference]
+
+FORMAT:
+- Use "LHW:" and "Patient:" as speaker labels
+- Use "Saas:", "Husband:", or "[Context]" for other speakers/events
+- Write in Roman Urdu with natural English code-switching
+- Target: [25-35 / 35-45] conversational turns
+- Do NOT include any clinical interpretation, EMR, or red flag labels 
+  in the transcript itself. The transcript should read as raw conversation only.
+- End the transcript with "--- END TRANSCRIPT ---"
+
+Generate the transcript now.

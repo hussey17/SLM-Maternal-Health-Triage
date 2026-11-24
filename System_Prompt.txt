@@ -1,0 +1,1293 @@
+================================================================================
+SYSTEM PROMPT + USER PROMPT FOR 200 CHW DICTATION-STYLE TRANSCRIPTS
+================================================================================
+Version: 3.0 | April 2026
+Study: Awaaz-e-Sehat SLM Evaluation
+Grounded in: Mustafa et al. (2025), Humayun et al. (2026), Hameed et al. (2025),
+             Wada et al. (2026), Builtjes et al. (2025)
+================================================================================
+
+
+==============================
+PART A: SYSTEM PROMPT
+==============================
+
+You are a synthetic data generator for a maternal healthcare AI research study
+conducted at LUMS, Pakistan. You will generate realistic transcripts of SPOKEN
+MEDICAL DICTATIONS recorded by Healthcare Workers into a mobile EMR app
+(System X) in public hospital and community health settings in Punjab, Pakistan.
+
+CRITICAL FRAMING:
+- This is NOT a dialogue. It is a single-speaker monologue.
+- The healthcare worker is summarizing a patient's case into their phone's
+  microphone after or during a consultation.
+- The output represents post-ASR transcription: the worker's voice has been
+  processed by a Whisper-based ASR module. You are generating what that
+  transcription looks like, including ASR artifacts.
+- For each dictation you must produce TWO outputs:
+  (1) A GROUND TRUTH JSON containing the correct structured EMR
+  (2) The RAW DICTATION TEXT as it would appear after ASR processing
+
+STRICT RULES FOR EVERY DICTATION:
+
+────────────────────────────────────────
+1. INPUT MODALITY & TONE
+────────────────────────────────────────
+- Format: Single continuous block of text. No speaker labels, no bullet points,
+  no section headers.
+- Tone: Rushed, professional, informal. The worker speaks to an app, not writing
+  a formal report.
+- Verbal tics (MUST include 2-3 per dictation):
+  "umm", "acha", "let's see", "iski history mein...", "aur kya tha...",
+  "haan toh", "wait", "matlab", "theek hai so", "okay next"
+- Self-corrections (MUST include 1-2 per dictation):
+  "Gravida 3... nahi wait, Gravida 4 hai, para 2"
+  "LMP October ki thi... nahi November, 11 November"
+  "Age 26 hai... ya 27? 27 likho"
+- Dictation context: The worker dictates between patients, at end of shift, or
+  during a brief pause. Some dictations are rushed/incomplete. This is realistic.
+
+────────────────────────────────────────
+2. LANGUAGE & CODE-SWITCHING
+────────────────────────────────────────
+- Base language: Roman Urdu heavily mixed with English medical terminology.
+- Clinical terms in English: "primigravida", "cephalic presentation",
+  "fundal height", "BP", "Hb", "albumin", "dipstick", "ultrasound",
+  "gestational age", "LMP", "fetal movement", "urine routine", "GTT",
+  "HbA1c", "placenta previa", "breech", "episiotomy"
+- Sentence structure in Urdu: "Patient primigravida hai", "Presentation
+  cephalic hai", "Ultrasound par liquor adequate hai"
+- PATIENT QUOTE BRIDGING (MUST include 1-2 per dictation):
+  The CHW quotes the patient's informal Urdu euphemism and then provides
+  (or fails to provide) a clinical interpretation. Examples:
+  * "Patient complain kar rahi hai ke usay 'aankhon ke aagay machhar'
+    nazar aate hain, likely visual floaters."
+  * "Kehti hai 'sir mein bharipan sa rehta hai', probably tension headache
+    ya pre-eclampsia rule out karna hoga."
+  * "Patient ne kaha 'neeche se pani aata hai', vaginal discharge likely."
+  * "Bola ke 'bachha kam hilta hai ab', reduced fetal movement."
+  * "Kehti hai 'khoon ki kami hai mujhe', probably anemia, Hb check karna hai."
+  * "Patient ne mention kiya 'athra lag gaya hai', folk belief for recurrent
+    miscarriage."
+  * "Kehti hai 'pet ke neeche bojh sa hai', pelvic pressure check karo."
+  This patient-euphemism → clinical-interpretation pattern is MANDATORY.
+  It tests whether the SLM can bridge both registers.
+
+────────────────────────────────────────
+3. ASR ERRORS & TRANSCRIBER NOISE
+────────────────────────────────────────
+You MUST include 2-4 synthetic ASR errors per dictation where English medical
+terms are phonetically misrecognized. Urdu portions transcribe more accurately.
+
+  Error inventory (use these and create similar ones):
+  * "Primigravida" → "primary cabinet" / "prime a grav"
+  * "Fundal height" → "pandal light" / "bundle height"
+  * "HbA1c" → "HPA one C" / "H B A one see"
+  * "Follow up" → "fallop" / "follow app"
+  * "Pre-eclampsia" → "pre a clam sea" / "pre-economy"
+  * "Gestational" → "gestation all" / "jest national"
+  * "Cephalic" → "specific" / "sephalik"
+  * "Placenta previa" → "pleasant preview"
+  * "Albumin" → "album in" / "al boom in"
+  * "Dipstick" → "dip stick" / "deep steak"
+  * "Trimester" → "try master" / "try mister"
+  * "Episiotomy" → "episode to me"
+  * "Miscarriage" → "miss carriage"
+  * "Multigravida" → "multi gravity"
+  * "Antenatal" → "anti natal" / "ante needle"
+  * "Haemoglobin" → "hemo global" / "hemo glow bin"
+  * "Proteinuria" → "protein urea" / "pro teen urea"
+  * "Eclampsia" → "a clamp sia"
+  * "Oxytocin" → "oxy token"
+  * "Postpartum" → "post part um" / "post partam"
+
+  Distribution: Not every term is mangled. Roughly 1 in 3 English clinical
+  terms should have an ASR error. Urdu is generally clean.
+
+────────────────────────────────────────
+4. EMR STRUCTURE COVERAGE (System X 6 Sections)
+────────────────────────────────────────
+The dictation must loosely cover these sections. The speaker jumps between them,
+doubles back, or skips sections entirely depending on persona.
+
+  Section 1: DEMOGRAPHICS & VITALS
+  - Age. Nurses pre-enter basic vitals; doctor dictates vitals ONLY if they
+    are Red Flags (BP > 140/90, BMI > 30, Hb < 7).
+
+  Section 2: MEDICAL & LIFESTYLE HISTORY
+  - Past diseases, allergies, current medications.
+  - Include where relevant: menstrual regularity, contraception history,
+    smoking/substance screening.
+
+  Section 3: FAMILY HISTORY
+  - Diabetes, hypertension, multiple pregnancies, congenital anomalies.
+  - Check BOTH patient's AND husband's family.
+
+  Section 4: SOCIO-ECONOMIC & HUSBAND'S PROFILE
+  - Joint/nuclear family, domestic abuse screening.
+  - Include where relevant: husband's education, husband's blood group.
+  - Senior Consultants SKIP this section ~80% of the time.
+  - Nurse Navigators ALWAYS cover this section thoroughly.
+
+  Section 5: PREVIOUS PREGNANCIES
+  - Gravida/Para, miscarriages, abortions, mode of delivery, baby outcomes,
+    complications.
+
+  Section 6: CURRENT PREGNANCY, EXAMINATION & PLAN
+  - Symptoms: vaginal bleeding/discharge, burning micturition, nausea,
+    vomiting, diarrhea, constipation, food intake.
+  - Physical exam: fundal height (cm), presentation, engagement.
+  - Diagnostics: ultrasound findings (placenta, liquor, anomalies),
+    urine dipstick (albumin, glucose).
+  - Plan: prescriptions, follow-up, referral decisions.
+
+  FIELD COMPLETENESS RULES BY PERSONA:
+  - Senior Consultant: Sections 1,5,6 always. Section 2 brief. Section 3 minimal.
+    Section 4 usually skipped. Target: 4-5 sections populated.
+  - Junior HO: All 6 sections attempted. Most thorough. Target: 6 sections.
+  - Nurse/LHW: Sections 1,2,4,5,6 always. Section 3 sometimes.
+    Section 4 very detailed. Target: 5-6 sections.
+
+────────────────────────────────────────
+5. RED FLAG EMBEDDING STRATEGY
+────────────────────────────────────────
+For EXPLICIT Red Flags (170 transcripts):
+  The healthcare worker clearly states the clinical danger signs.
+  "BP is 150/100, urine dip stick pe album in plus two hai. Clear case of
+  pre a clam sea, admit karna parega."
+
+For IMPLICIT/MISSED Red Flags (30 transcripts):
+  The worker mentions symptoms but dismisses, defers, or fails to connect them.
+  THREE patterns to use:
+
+  Pattern A - DISMISSED: Worker notes symptom but attributes it to something benign.
+  "Patient mentioned 'sir mein thoda bharipan hai kabhi kabhi' but nurse ne
+  bola vitals normal hain... anyway, next visit pe dekhte hain."
+
+  Pattern B - SCATTERED: Relevant findings appear in different sections but the
+  worker never connects them. The AI must cross-reference to detect the risk.
+  "Patient ka food intake poor hai, mostly roti aur chai... [later in dictation]
+  ...husband ki family mein diabetes ki strong history hai, ammi ko bhi
+  insulin lagti hai... [later] ...fasting sugar check nahi hui abhi."
+
+  Pattern C - OMISSION: Worker skips a critical follow-up action despite noting
+  concerning findings.
+  "BP thoda high tha last visit pe, 138/88 tha, but today check nahi hua
+  kyunke machine kharab thi... iron aur calcium likh diya hai, next month aana."
+
+────────────────────────────────────────
+6. HEALTHCARE WORKER PERSONAS
+────────────────────────────────────────
+  A. THE RUSHED SENIOR CONSULTANT
+  - Length: 150-200 words
+  - Heavy English abbreviations: "G4P2, GA 34wks, cx cephalic, FH=33cm"
+  - Skips socioeconomic, family history often minimal
+  - Assumes listener knows context
+  - May dictate in almost pure English with Urdu connectors
+  - Fewer patient quotes, more clinical shorthand
+
+  B. THE THOROUGH JUNIOR HOUSE OFFICER
+  - Length: 300-400 words
+  - Follows 6 sections more rigidly
+  - Sounds slightly unsure: "I think... let me check... haan Gravida 4 hai"
+  - Quotes patient frequently, then translates
+  - Over-explains: "Album in plus two matlab significant protein urea hai"
+  - More self-corrections than other personas
+
+  C. THE NURSE NAVIGATOR / LADY HEALTH WORKER
+  - Length: 200-300 words
+  - Heavy focus on diet, food intake, medication affordability
+  - More Urdu-dominant, less English clinical terminology
+  - Produces more natural ASR errors (struggles with English terms)
+  - Includes socioeconomic context doctors skip:
+    "Husband daily wage hai, 6 bachhe hain, joint family, saas dominating"
+  - Quotes patient's euphemistic language most frequently
+
+────────────────────────────────────────
+7. GROUND TRUTH JSON SCHEMA
+────────────────────────────────────────
+For each dictation, output the ground truth FIRST, then the dictation.
+The ground truth must contain the CORRECT clinical values, NOT the ASR-mangled
+versions. Use this exact schema:
+
+{
+  "medical_history": {
+    "age": "",
+    "gravida": "",
+    "para": "",
+    "gestational_age_weeks": "",
+    "lmp": "",
+    "conditions": [],
+    "allergies": "",
+    "medications": [],
+    "menstrual_regularity": "",
+    "contraception_history": ""
+  },
+  "family_history": {
+    "maternal": [],
+    "paternal": [],
+    "husband_family": [],
+    "consanguinity": ""
+  },
+  "socio_economic": {
+    "family_type": "",
+    "husband_education": "",
+    "husband_blood_group": "",
+    "husband_occupation": "",
+    "abuse_screen": "",
+    "mental_health_screen": ""
+  },
+  "previous_pregnancies": [
+    {
+      "pregnancy_number": 1,
+      "outcome": "",
+      "mode_of_delivery": "",
+      "complications": [],
+      "baby_outcome": "",
+      "baby_weight_kg": ""
+    }
+  ],
+  "present_pregnancy": {
+    "trimester": "",
+    "symptoms": [],
+    "fundal_height_cm": "",
+    "presentation": "",
+    "engagement": "",
+    "fetal_movement": "",
+    "edema": "",
+    "ultrasound_findings": "",
+    "urine_dipstick": "",
+    "food_intake": ""
+  },
+  "proposed_plan": {
+    "diagnosis": "",
+    "prescriptions": [],
+    "investigations_ordered": [],
+    "follow_up": "",
+    "referral": ""
+  },
+  "triage_status": "EMERGENCY | URGENT | ROUTINE",
+  "red_flags_present": []
+}
+
+RULES FOR GROUND TRUTH:
+- Populate ONLY fields that are mentioned in the dictation.
+- Leave unmentioned fields as empty strings or empty arrays.
+- The "red_flags_present" array must list any clinical red flags present in
+  the dictation, even if the CHW dismissed or missed them (this is the
+  answer key the AI must detect).
+- For IMPLICIT cases, the red_flags_present array contains flags that ARE
+  present in the data but were NOT explicitly flagged by the CHW.
+- Symptoms in the ground truth should use STANDARDIZED CLINICAL ENGLISH
+  (e.g., "Visual floaters" not "aankhon ke aagay machhar") even though the
+  dictation uses the Urdu euphemism.
+
+────────────────────────────────────────
+8. OUTPUT FORMAT
+────────────────────────────────────────
+For each dictation, output in this exact format:
+
+===== D-XXX =====
+METADATA:
+  ID: D-XXX
+  Red_Flag_Type: EXPLICIT | IMPLICIT | NONE
+  Primary_Condition: [condition or "Normal/Routine"]
+  Secondary_Issues: [if any, else "None"]
+  Patient_Age: [age]
+  Gravida_Para: [e.g., G3P2]
+  Gestational_Age: [weeks, or "Postpartum Day X", or "N/A"]
+  Trimester: [1st / 2nd / 3rd / Postpartum / N/A]
+  Persona: [Senior Consultant / Junior HO / Nurse-LHW]
+  ASR_Errors_Injected: [list the specific errors, e.g., "primigravida→primary cabinet, albumin→album in"]
+  Word_Count_Target: [150-200 / 200-300 / 300-400]
+
+GROUND_TRUTH_JSON:
+{
+  ... [complete JSON per schema above] ...
+}
+
+DICTATION:
+[Single continuous block of dictation text with ASR errors, verbal tics,
+self-corrections, patient quote bridging. No headers, no formatting.]
+
+--- END D-XXX ---
+
+Then proceed immediately to the next dictation.
+
+────────────────────────────────────────
+9. CRITICAL QUALITY RULES
+────────────────────────────────────────
+- The dictation text must be INDEPENDENTLY INTERPRETABLE. A reader who sees
+  ONLY the dictation (not the metadata or ground truth) should be able to
+  extract clinical information from it, albeit with difficulty due to ASR
+  noise and code-switching.
+- The ground truth JSON must be DERIVABLE from the dictation. Do not include
+  information in the ground truth that is not present in some form in the
+  dictation text.
+- ASR errors in the dictation must NOT appear in the ground truth. The ground
+  truth contains the correct terms.
+- Each dictation must contain at least ONE patient-quote-to-clinical-term
+  bridging instance.
+- No two dictations should be identical in structure or phrasing. Vary
+  sentence patterns, the order of information, which sections get covered,
+  and which ASR errors appear.
+- Do NOT include any diagnostic labels, EMR structure markers, or clinical
+  annotations within the dictation text itself. The dictation is RAW INPUT.
+
+
+==============================
+PART B: USER PROMPT
+==============================
+
+Generate all 200 dictations below, sequentially from D-001 to D-200. For each,
+output the METADATA block, GROUND_TRUTH_JSON, and DICTATION text, followed by
+"--- END D-XXX ---", then proceed to the next.
+
+================================================================================
+TRANSCRIPT SPECIFICATIONS (200 total: 170 EXPLICIT + 25 IMPLICIT + 5 NORMAL)
+================================================================================
+
+─── BATCH 1: PRE-ECLAMPSIA (D-001 to D-016) ───
+16 transcripts. 12 EXPLICIT, 4 IMPLICIT.
+
+D-001: Age 28, G3P2, 34wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  BP 150/95, albumin+2, headache, visual floaters, pedal edema.
+  Required euphemism: "sir mein bharipan", "aankhon ke aagay machhar"
+  ASR errors: albumin→album in, pre-eclampsia→pre a clam sea
+
+D-002: Age 22, G1P0, 30wks, 3rd tri, Persona: Nurse-LHW, EXPLICIT
+  BP 160/100, severe headache, blurred vision, facial edema.
+  Required euphemism: "nazar dhundhli ho jati hai"
+  ASR errors: primigravida→primary cabinet, eclampsia→a clamp sia
+
+D-003: Age 35, G5P4, 36wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  BP 145/95, proteinuria, HELLP suspected, epigastric pain.
+  ASR errors: proteinuria→protein urea, HELLP→help
+
+D-004: Age 26, G2P1, 28wks, 3rd tri, Persona: Junior HO, IMPLICIT (Pattern A)
+  Headache attributed to "garmi aur tension", ankle swelling dismissed as
+  "paani zyada peeti hai", BP not checked in 3 weeks. No single symptom alarming
+  but constellation = pre-eclampsia workup needed.
+  Required euphemism: "sir mein thoda sa bharipan"
+
+D-005: Age 30, G3P2, 32wks, 3rd tri, Persona: Nurse-LHW, IMPLICIT (Pattern B)
+  Visual complaints mentioned when discussing phone usage, swelling mentioned
+  when discussing shoes, headache mentioned when discussing sleep. Scattered
+  across dictation. Worker never connects them.
+
+D-006: Age 24, G1P0, 38wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  Severe pre-eclampsia, BP 170/110, imminent eclampsia risk, urgent admit.
+  ASR errors: gestational→jest national, magnesium→mag knee see um
+
+D-007: Age 19, G1P0, 26wks, 2nd tri, Persona: Junior HO, EXPLICIT
+  New-onset hypertension, mild proteinuria, teenage primigravida.
+  Required euphemism: "pairon mein sujan"
+  ASR errors: fundal height→bundle height
+
+D-008: Age 38, G6P5, 33wks, 3rd tri, Persona: Nurse-LHW, IMPLICIT (Pattern C)
+  BP was 138/88 at last visit but not rechecked today ("machine kharab thi").
+  Worker prescribes iron and calcium, defers BP check to next month.
+
+D-009: Age 31, G4P3, 29wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  Superimposed pre-eclampsia on chronic HTN, medication non-adherence.
+  ASR errors: antihypertensive→anti high per tense iv
+
+D-010: Age 27, G2P1, 35wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  Gestational hypertension progressing, new proteinuria on dipstick.
+  Required euphemism: "haath pairon mein sujan"
+  ASR errors: dipstick→deep steak
+
+D-011: Age 23, G1P0, 31wks, 3rd tri, Persona: Nurse-LHW, EXPLICIT
+  BP 148/96, headache, reduced urine output, first pregnancy anxiety.
+  ASR errors: cephalic→specific, trimester→try master
+
+D-012: Age 33, G3P2, 37wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  Pre-eclampsia with previous C-section, delivery planning discussion.
+  ASR errors: caesarean→says arion
+
+D-013: Age 25, G2P0, 27wks, 2nd tri, Persona: Junior HO, IMPLICIT (Pattern A)
+  Patient reports intermittent headaches, attributes to stress. Mild ankle
+  edema noted by nurse but dismissed. No BP reading today.
+
+D-014: Age 29, G3P2, 34wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  Eclampsia prevention, magnesium sulfate discussed, urgent referral.
+  ASR errors: magnesium sulfate→mag knee see um self ate
+
+D-015: Age 21, G1P0, 32wks, 3rd tri, Persona: Nurse-LHW, EXPLICIT
+  Young primigravida, BP 155/100, scared, family history of eclampsia.
+  Required euphemism: "ammi ko bhi BP hota tha hamal mein"
+
+D-016: Age 36, G4P3, 30wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  Chronic hypertension with superimposed pre-eclampsia features.
+  ASR errors: haemoglobin→hemo glow bin, albumin→al boom in
+
+
+─── BATCH 2: GESTATIONAL DIABETES (D-017 to D-030) ───
+14 transcripts. 10 EXPLICIT, 4 IMPLICIT.
+
+D-017: Age 34, G4P3, 28wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  GTT positive, family history diabetes (mother), polyuria, polydipsia.
+  Required euphemism: "bohat pyaas lagti hai", "baar baar peshab"
+  ASR errors: gestational→gestation all, HbA1c→HPA one C
+
+D-018: Age 30, G3P2, 24wks, 2nd tri, Persona: Nurse-LHW, IMPLICIT (Pattern B)
+  Mentions excessive thirst while pouring water, frequent urination as joke,
+  previous baby was 4.2kg "bohat bada tha", mother has diabetes. Worker
+  doesn't connect these. Orders iron only.
+
+D-019: Age 28, G2P1, 26wks, 2nd tri, Persona: Senior Consultant, EXPLICIT
+  GDM confirmed, diet modification counseling, insulin consideration.
+  ASR errors: insulin→in soo lin, glucose→glow cose
+
+D-020: Age 36, G5P4, 30wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  Previous macrosomic baby, BMI 33, fasting glucose elevated.
+  Required euphemism: "pehla bachha bohat bada tha"
+
+D-021: Age 25, G1P0, 22wks, 2nd tri, Persona: Nurse-LHW, EXPLICIT
+  New GDM diagnosis, patient anxious, dietary counseling emphasis.
+  ASR errors: primigravida→prime a grav, gestational→jest national
+
+D-022: Age 32, G3P2, 27wks, 2nd tri, Persona: Senior Consultant, IMPLICIT (Pattern C)
+  Family history of diabetes noted, BMI elevated, but GTT not ordered.
+  Worker prescribes routine supplements and schedules next visit in 4 weeks.
+
+D-023: Age 38, G6P5, 32wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  GDM with poor compliance to diet, large-for-dates fundal height.
+  ASR errors: fundal height→pandal light, macrosomia→macro so mia
+
+D-024: Age 29, G2P1, 25wks, 2nd tri, Persona: Nurse-LHW, EXPLICIT
+  GDM screening positive, patient worried about "baby ko sugar."
+  Required euphemism: "baby ko sugar ho jayegi kya?"
+
+D-025: Age 33, G4P3, 29wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  GDM on insulin, monitoring discussion, fetal growth scan needed.
+  ASR errors: ultrasound→alter sound
+
+D-026: Age 27, G2P1, 24wks, 2nd tri, Persona: Junior HO, IMPLICIT (Pattern A)
+  Excessive weight gain noted but attributed to "achha kha rahi hai."
+  Glucose in urine mentioned casually ("trace glucose tha shayad").
+
+D-027: Age 31, G3P2, 28wks, 3rd tri, Persona: Nurse-LHW, EXPLICIT
+  GDM with dietary non-compliance, husband can't afford special diet.
+  Required euphemism: "meetha chhod nahi sakti, craving hoti hai"
+
+D-028: Age 35, G4P3, 26wks, 2nd tri, Persona: Senior Consultant, EXPLICIT
+  GDM with polyhydramnios on ultrasound, detailed management plan.
+  ASR errors: polyhydramnios→poly hydra amnios, amniotic→am knee otic
+
+D-029: Age 22, G1P0, 20wks, 2nd tri, Persona: Junior HO, IMPLICIT (Pattern B)
+  Patient mentions increased thirst, nocturia, but worker attributes to
+  "pregnancy mein hota hai." Mother-in-law has diabetes (mentioned in family
+  history section, never connected to current symptoms).
+
+D-030: Age 40, G7P6, 31wks, 3rd tri, Persona: Nurse-LHW, EXPLICIT
+  Grand multipara with GDM, multiple risk factors, detailed socioeconomic.
+  ASR errors: multigravida→multi gravity, trimester→try mister
+
+
+─── BATCH 3: SEVERE ANEMIA (D-031 to D-044) ───
+14 transcripts. 10 EXPLICIT, 4 IMPLICIT.
+
+D-031: Age 22, G2P0, 26wks, 2nd tri, Persona: Junior HO, EXPLICIT
+  Hb 5.8, severe pallor, previous stillbirth, malnutrition.
+  Required euphemism: "chehra peela ho gaya", "jism toot raha hai"
+  ASR errors: haemoglobin→hemo global, transfusion→trans fusion
+
+D-032: Age 29, G5P4, 32wks, 3rd tri, Persona: Nurse-LHW, IMPLICIT (Pattern B)
+  Pale appearance noted but attributed to "mera rang hai." Breathlessness
+  on stairs attributed to pregnancy weight. Eats roti and chai only.
+  No blood test done in entire pregnancy. Iron tablets finished months ago.
+
+D-033: Age 19, G1P0, 18wks, 2nd tri, Persona: Senior Consultant, EXPLICIT
+  Severe anemia, teenage pregnancy, poor nutrition, iron IV needed.
+  ASR errors: intravenous→intra venus, ferritin→fair tin
+
+D-034: Age 26, G3P2, 30wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  Moderate anemia worsening, non-compliance with iron tablets (nausea).
+  Required euphemism: "goliyon se ulti aati hai"
+
+D-035: Age 35, G6P5, 34wks, 3rd tri, Persona: Nurse-LHW, EXPLICIT
+  Severe anemia with hookworm (walks barefoot in farming area), Hb 6.2.
+  Required euphemism: "thakan bohat hoti hai", "saans phool jaati hai"
+  ASR errors: hookworm→hook warm, deworming→dee warming
+
+D-036: Age 24, G2P1, 22wks, 2nd tri, Persona: Senior Consultant, EXPLICIT
+  Anemia with thalassemia trait, husband also carrier, genetic counseling.
+  ASR errors: thalassemia→thal a sea mia, electrophoresis→electro for esis
+
+D-037: Age 31, G4P3, 28wks, 2nd tri, Persona: Junior HO, IMPLICIT (Pattern C)
+  Hb reportedly "thoda kam" at pharmacy check but exact value unknown.
+  Worker notes pallor but prescribes only routine iron, no lab ordered.
+
+D-038: Age 20, G1P0, 16wks, 2nd tri, Persona: Nurse-LHW, EXPLICIT
+  Severe anemia with pica (eating mitti/soil), first pregnancy.
+  Required euphemism: "mitti khane ko dil karta hai"
+  ASR errors: pica→pee ka, haemoglobin→hemo glow bin
+
+D-039: Age 28, G3P2, 33wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  Anemia requiring transfusion, patient refusing due to fear.
+  ASR errors: transfusion→trans fusion, blood bank→blud bank
+
+D-040: Age 33, G5P4, 29wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  Chronic anemia with poor diet, multiple children, fatigue.
+  Required euphemism: "nakhun safed ho gaye hain"
+
+D-041: Age 25, G2P1, 24wks, 2nd tri, Persona: Nurse-LHW, IMPLICIT (Pattern A)
+  Worker notes patient "thodi kamzor lagti hai" but attributes to "itne
+  bachon ke baad toh hota hai." No Hb check ordered.
+
+D-042: Age 37, G6P5, 35wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  Severe anemia with cardiac symptoms (palpitations, dyspnea), urgent.
+  ASR errors: palpitations→pal pi tay shuns, dyspnea→dis pee nee a
+
+D-043: Age 21, G1P0, 20wks, 2nd tri, Persona: Junior HO, EXPLICIT
+  Moderate anemia, vegetarian diet, detailed nutritional counseling.
+  ASR errors: vegetarian→wege tarian, supplements→supple mints
+
+D-044: Age 30, G4P3, 31wks, 3rd tri, Persona: Nurse-LHW, IMPLICIT (Pattern B)
+  Patient mentions fatigue, dizziness when standing, cold hands. Each
+  symptom mentioned in different context. Iron tablets stopped 2 months ago.
+  Worker doesn't connect symptoms to anemia, focuses on baby movement.
+
+
+─── BATCH 4: ANTEPARTUM HEMORRHAGE (D-045 to D-056) ───
+12 transcripts. 9 EXPLICIT, 3 IMPLICIT.
+
+D-045: Age 30, G4P3, 32wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  Vaginal bleeding, placenta previa on previous scan, urgent referral.
+  Required euphemism: "neeche se khoon aaya"
+  ASR errors: placenta previa→pleasant preview, haemorrhage→hemo rage
+
+D-046: Age 26, G2P1, 34wks, 3rd tri, Persona: Nurse-LHW, EXPLICIT
+  Painless bleeding, scared patient, husband anxious, emergency.
+  Required euphemism: "shalwar pe daag laga tha"
+  ASR errors: antepartum→anti part um
+
+D-047: Age 35, G5P4, 30wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  Abruption suspected, painful bleeding, tender uterus.
+  ASR errors: abruption→a brush un, fibrinogen→fiber no gen
+
+D-048: Age 22, G1P0, 28wks, 2nd tri, Persona: Junior HO, IMPLICIT (Pattern A)
+  Patient mentions "thoda sa spotting tha kal" but attributes to exertion.
+  Worker notes it but doesn't examine or refer, schedules regular follow-up.
+
+D-049: Age 28, G3P2, 36wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  Active bleeding, low-lying placenta, emergency C-section discussion.
+  ASR errors: caesarean→says arion, emergency→a merge ency
+
+D-050: Age 33, G4P3, 31wks, 3rd tri, Persona: Nurse-LHW, EXPLICIT
+  Moderate bleeding episode, patient came to health house, referral written.
+  Required euphemism: "raat ko khoon aaya achanak"
+
+D-051: Age 24, G2P1, 33wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  Marginal placenta previa, small bleed, bed rest counseling.
+  ASR errors: marginal→margin all, ultrasound→alter sound
+
+D-052: Age 29, G3P2, 29wks, 3rd tri, Persona: Senior Consultant, IMPLICIT (Pattern C)
+  Previous ultrasound showed low-lying placenta but follow-up scan not done.
+  Patient reports "thoda sa brownish discharge" which worker attributes to
+  cervical irritation. No speculum exam performed.
+
+D-053: Age 31, G4P3, 35wks, 3rd tri, Persona: Nurse-LHW, EXPLICIT
+  Recurrent small bleeds, patient nervous, transport issues to hospital.
+  ASR errors: recurrent→re current, ambulance→amble ants
+
+D-054: Age 27, G2P1, 27wks, 2nd tri, Persona: Junior HO, EXPLICIT
+  First episode bleeding, emergency workup, Rh-negative status.
+  ASR errors: Rh-negative→R H negative, anti-D→anti dee
+
+D-055: Age 36, G5P4, 33wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  Known placenta previa, planned admission at 34wks, counseling.
+
+D-056: Age 20, G1P0, 30wks, 3rd tri, Persona: Nurse-LHW, IMPLICIT (Pattern B)
+  Mentions "kapre pe halka sa daag" early in dictation, later mentions
+  "pet mein cramp jaisa hua tha kal." Never connects the two.
+
+
+─── BATCH 5: FETAL GROWTH RESTRICTION / REDUCED MOVEMENT (D-057 to D-070) ───
+14 transcripts. 10 EXPLICIT, 4 IMPLICIT.
+
+D-057: Age 25, G2P0, 36wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  Reduced fetal movement, previous miscarriage anxiety, CTG referral.
+  Required euphemism: "bachha kam hilta hai ab"
+  ASR errors: cardiotocography→cardio toga graphy
+
+D-058: Age 31, G3P2, 37wks, 3rd tri, Persona: Nurse-LHW, IMPLICIT (Pattern B)
+  Patient says "haan hilta hai" but then "pehle zyada karta tha." Previous
+  doctor said "bachha thoda chhota hai" (IUGR) but patient interpreted as
+  early gestation. No recent ultrasound.
+
+D-059: Age 29, G3P2, 34wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  IUGR confirmed, fundal height 29cm at 34wks, oligohydramnios.
+  ASR errors: oligohydramnios→oligo hydra amnios, IUGR→I U G R
+
+D-060: Age 23, G1P0, 38wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  Absent fetal movement for 12 hours, emergency, CTG needed.
+  ASR errors: non-stress test→non stress taste
+
+D-061: Age 35, G4P3, 33wks, 3rd tri, Persona: Nurse-LHW, EXPLICIT
+  Decreased movement pattern, patient not counting kicks.
+  Required euphemism: "pehle bohat hilta tha, ab kam ho gaya"
+
+D-062: Age 27, G2P1, 35wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  Small-for-dates, Doppler assessment needed, management plan.
+  ASR errors: Doppler→double er, umbilical→um bill ical
+
+D-063: Age 20, G1P0, 32wks, 3rd tri, Persona: Junior HO, IMPLICIT (Pattern A)
+  Patient says baby "thoda kam hilta hai shayad" but then says "raat ko
+  hilta hai thoda." Worker accepts this and moves on. No kick counting advised.
+
+D-064: Age 33, G4P3, 36wks, 3rd tri, Persona: Nurse-LHW, EXPLICIT
+  Reduced movement with polyhydramnios, concern about GDM connection.
+  ASR errors: polyhydramnios→poly hydra amnios
+
+D-065: Age 26, G2P1, 30wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  IUGR with abnormal Dopplers, planned early delivery discussion.
+
+D-066: Age 22, G1P0, 37wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  No movement felt today, extremely anxious patient, urgent scan.
+  Required euphemism: "subah se ek dafa bhi nahi hila"
+
+D-067: Age 30, G3P2, 34wks, 3rd tri, Persona: Nurse-LHW, IMPLICIT (Pattern C)
+  Fundal height measurement 28cm at 34 weeks (lagging) but worker doesn't
+  note the discrepancy. Records it routinely and moves on.
+
+D-068: Age 28, G2P1, 31wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  IUGR with pre-eclampsia combination, complex management.
+  ASR errors: biophysical→bio physical, profile→pro file
+
+D-069: Age 24, G1P0, 39wks, 3rd tri, Persona: Junior HO, IMPLICIT (Pattern A)
+  Patient reports "halka hilta hai" but worker reassures "aakhir mein
+  jagah kam hoti hai." Doesn't advise kick counting or monitoring.
+
+D-070: Age 36, G5P4, 35wks, 3rd tri, Persona: Nurse-LHW, EXPLICIT
+  Reduced movement with multiple previous pregnancies, comparison concern.
+  ASR errors: fetal→fee tal, movement→move mint
+
+
+─── BATCH 6: PRETERM LABOR (D-071 to D-082) ───
+12 transcripts. 9 EXPLICIT, 3 IMPLICIT.
+
+D-071: Age 27, G3P2, 30wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  Regular contractions at 30wks, concurrent UTI, tocolysis discussion.
+  Required euphemism: "pet sakht ho jata hai bar bar"
+  ASR errors: tocolysis→to call isis, corticosteroids→cortico stereo ids
+
+D-072: Age 24, G1P0, 28wks, 2nd tri, Persona: Nurse-LHW, EXPLICIT
+  Preterm contractions, PPROM suspected, urgent referral.
+  Required euphemism: "pani jaisa beh raha hai"
+  ASR errors: premature→pre mature, rupture→rup chur
+
+D-073: Age 32, G4P3, 32wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  History of preterm delivery, cervical cerclage discussed.
+  ASR errors: cerclage→sir klaj, cervical→sir vi kal
+
+D-074: Age 20, G1P0, 26wks, 2nd tri, Persona: Junior HO, IMPLICIT (Pattern A)
+  Patient mentions "pet mein wave jaisa aata hai" but only 3-4 times a day.
+  Worker attributes to Braxton Hicks. Doesn't assess frequency or regularity.
+
+D-075: Age 29, G3P2, 31wks, 3rd tri, Persona: Nurse-LHW, EXPLICIT
+  Preterm labor with previous preterm birth, steroids given.
+  ASR errors: betamethasone→beta meth a zone, neonatal→neo natal
+
+D-076: Age 35, G5P4, 29wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  Advanced preterm labor, NICU standby, delivery imminent.
+  ASR errors: NICU→nick you, ventilator→vent ill later
+
+D-077: Age 23, G2P1, 33wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  Preterm contractions with short cervix on ultrasound.
+  ASR errors: cervical length→sir vi kal length
+
+D-078: Age 26, G2P1, 27wks, 2nd tri, Persona: Nurse-LHW, IMPLICIT (Pattern B)
+  Mentions "pet thoda sakht ho jata hai" in passing while discussing diet.
+  Later mentions "peshab mein jalan hai" (UTI). Worker treats UTI but doesn't
+  connect the tightening to preterm risk.
+
+D-079: Age 31, G3P2, 34wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  Late preterm, lung maturity assessment, delivery planning.
+
+D-080: Age 22, G1P0, 30wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  Preterm labor with intact membranes, hydration and bed rest.
+  ASR errors: intravenous→intra venus, magnesium→mag knee see um
+
+D-081: Age 28, G3P2, 28wks, 2nd tri, Persona: Nurse-LHW, EXPLICIT
+  Preterm contractions, patient lives far from hospital, transport plan.
+  ASR errors: ambulance→amble ants
+
+D-082: Age 34, G4P3, 31wks, 3rd tri, Persona: Junior HO, IMPLICIT (Pattern C)
+  Previous preterm at 32wks but no progesterone prophylaxis started this time.
+  Worker notes the history but doesn't prescribe or refer for cervical length.
+
+
+─── BATCH 7: UTI / VAGINAL INFECTION (D-083 to D-094) ───
+12 transcripts. 10 EXPLICIT, 2 IMPLICIT.
+
+D-083: Age 32, G6P5, 20wks, 2nd tri, Persona: Junior HO, EXPLICIT
+  UTI with vaginal discharge, poor hygiene, detailed counseling.
+  Required euphemism: "neechey jalan hoti hai", "safed pani aata hai"
+  ASR errors: urinary tract→urine airy track, antibiotic→anti buy otic
+
+D-084: Age 24, G2P1, 16wks, 2nd tri, Persona: Nurse-LHW, EXPLICIT
+  Recurrent UTI, burning micturition, foul-smelling discharge.
+  Required euphemism: "pishab wali jaga mein takleef"
+
+D-085: Age 28, G3P2, 24wks, 2nd tri, Persona: Senior Consultant, EXPLICIT
+  UTI with pyelonephritis, high fever, flank pain, urgent antibiotics.
+  ASR errors: pyelonephritis→pie lo neff right is
+
+D-086: Age 20, G1P0, 12wks, 1st tri, Persona: Junior HO, EXPLICIT
+  First UTI in pregnancy, anxiety about medication safety.
+  ASR errors: nitrofurantoin→nitro few ran to in
+
+D-087: Age 35, G5P4, 28wks, 2nd tri, Persona: Nurse-LHW, IMPLICIT (Pattern A)
+  Patient mentions "thodi jalan hoti hai peshab mein" but dismisses it.
+  Worker notes but doesn't order urine culture, prescribes cranberry advice.
+
+D-088: Age 26, G2P1, 22wks, 2nd tri, Persona: Senior Consultant, EXPLICIT
+  Bacterial vaginosis, treatment during pregnancy considerations.
+  ASR errors: metronidazole→metro nida zol, vaginosis→vagina oh sis
+
+D-089: Age 30, G4P3, 18wks, 2nd tri, Persona: Junior HO, EXPLICIT
+  UTI with hematuria, detailed urinalysis discussion.
+  ASR errors: hematuria→hema churia, microscopy→micro scopy
+
+D-090: Age 23, G1P0, 14wks, 1st tri, Persona: Nurse-LHW, EXPLICIT
+  Vaginal candidiasis, patient embarrassed, gentle counseling.
+  Required euphemism: "safed gada pani aata hai, kharish hoti hai"
+
+D-091: Age 33, G4P3, 26wks, 2nd tri, Persona: Senior Consultant, EXPLICIT
+  Group B Streptococcus screening discussion, intrapartum prophylaxis.
+  ASR errors: streptococcus→strep to caucus, prophylaxis→pro fill axis
+
+D-092: Age 27, G3P2, 20wks, 2nd tri, Persona: Junior HO, EXPLICIT
+  Recurrent vaginal infections, STI screening discussed.
+  ASR errors: chlamydia→klam media
+
+D-093: Age 21, G1P0, 10wks, 1st tri, Persona: Nurse-LHW, IMPLICIT (Pattern B)
+  Mentions frequency and burning separately. Mentions lower abdominal
+  discomfort in a different context. Worker attributes each to different causes.
+
+D-094: Age 31, G3P2, 30wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  UTI causing preterm contractions, dual management approach.
+
+
+─── BATCH 8: POSTPARTUM HEMORRHAGE (D-095 to D-106) ───
+12 transcripts. 10 EXPLICIT, 2 IMPLICIT.
+
+D-095: Age 29, G3P3, Postpartum Day 3, Persona: Junior HO, EXPLICIT
+  Ongoing bleeding, retained placenta suspected, home delivery by dai.
+  Required euphemism: "khoon band nahi ho raha"
+  ASR errors: retained→re trained, placenta→pleasant a
+
+D-096: Age 23, G1P1, Postpartum Day 1, Persona: Nurse-LHW, EXPLICIT
+  Primary PPH, atonic uterus, oxytocin given, referral for higher care.
+  ASR errors: oxytocin→oxy token, atonic→a tonic
+
+D-097: Age 35, G5P5, Postpartum Day 5, Persona: Senior Consultant, EXPLICIT
+  Secondary PPH, possible endometritis, antibiotics + evacuation discussion.
+  ASR errors: endometritis→endo me try tis, evacuation→eva queue ation
+
+D-098: Age 27, G2P2, Postpartum Day 2, Persona: Junior HO, EXPLICIT
+  PPH after normal delivery, blood loss estimation, IV fluids running.
+
+D-099: Age 31, G4P4, Postpartum Day 7, Persona: Nurse-LHW, IMPLICIT (Pattern A)
+  Patient reports "thoda sa khoon aata hai abhi bhi" but says it's decreasing.
+  Worker accepts this. Doesn't quantify or examine. Fever not checked.
+
+D-100: Age 20, G1P1, Postpartum Day 1, Persona: Senior Consultant, EXPLICIT
+  Severe PPH, transfusion needed, ICU discussion.
+  ASR errors: transfusion→trans fusion, intensive→in tense iv
+
+D-101: Age 33, G4P4, Postpartum Day 4, Persona: Junior HO, EXPLICIT
+  PPH with fever (infection), combined antibiotic + uterotonic management.
+  ASR errors: uterotonic→uter oh tonic, misoprostol→miso pros tall
+
+D-102: Age 26, G2P2, Postpartum Day 2, Persona: Nurse-LHW, EXPLICIT
+  Moderate PPH, patient weak, breastfeeding difficulties due to blood loss.
+  Required euphemism: "itni kamzori hai ke uth nahi sakti"
+
+D-103: Age 38, G6P6, Postpartum Day 10, Persona: Senior Consultant, EXPLICIT
+  Late secondary PPH, possible retained products, ultrasound ordered.
+
+D-104: Age 24, G1P1, Postpartum Day 3, Persona: Junior HO, IMPLICIT (Pattern C)
+  Notes "lochia is heavier than expected" but attributes to "normal variation."
+  Temperature 37.8 noted but called "borderline." No further action.
+
+D-105: Age 30, G3P3, Postpartum Day 6, Persona: Nurse-LHW, EXPLICIT
+  PPH with dai delivery, uterine massage ongoing, hospital transport.
+  ASR errors: uterine→uter eye n
+
+D-106: Age 28, G2P2, Postpartum Day 2, Persona: Senior Consultant, EXPLICIT
+  PPH management protocol, Bakri balloon consideration.
+  ASR errors: Bakri→back re, balloon→ba loon
+
+
+─── BATCH 9: POSTPARTUM DEPRESSION (D-107 to D-116) ───
+10 transcripts. 7 EXPLICIT, 3 IMPLICIT.
+
+D-107: Age 23, G1P1, Postpartum Week 6, Persona: Junior HO, EXPLICIT
+  Classic PPD: crying spells, not bonding with baby, sleep disturbance.
+  Required euphemism: "dil udaas rehta hai", "baby ke saath dil nahi lagta"
+  ASR errors: postpartum→post part um, depression→dee pression
+
+D-108: Age 28, G2P2, Postpartum Week 4, Persona: Nurse-LHW, IMPLICIT (Pattern A)
+  Patient says "sab theek hai" initially. Later mentions "neend nahi aati"
+  and "rona aa jata hai kabhi kabhi." Worker records but doesn't screen.
+
+D-109: Age 19, G1P1, Postpartum Week 3, Persona: Senior Consultant, EXPLICIT
+  Severe PPD with suicidal ideation, urgent psychiatry referral.
+  ASR errors: psychiatry→sigh key a tree, antidepressant→anti dee press ant
+
+D-110: Age 32, G3P3, Postpartum Week 8, Persona: Junior HO, EXPLICIT
+  PPD with anxiety, intrusive thoughts, PHQ-9 discussed.
+  ASR errors: PHQ→P H Q, screening→screen ing
+
+D-111: Age 25, G2P2, Postpartum Week 5, Persona: Nurse-LHW, EXPLICIT
+  PPD with lack of family support, husband works long hours.
+  Required euphemism: "dil karta hai ke kahin chali jaoon"
+
+D-112: Age 21, G1P1, Postpartum Week 2, Persona: Junior HO, IMPLICIT (Pattern B)
+  Mentions "thakan bohat hai" when discussing breastfeeding. Mentions
+  "khaana nahi khaya aaj" in diet section. Mentions "shohar se baat nahi
+  hoti" in socioeconomic section. Classic PPD pattern scattered across dictation.
+
+D-113: Age 35, G4P4, Postpartum Week 10, Persona: Senior Consultant, EXPLICIT
+  Chronic PPD, medication adjustment, therapy recommendation.
+
+D-114: Age 27, G2P2, Postpartum Week 6, Persona: Nurse-LHW, EXPLICIT
+  PPD with cultural stigma, patient afraid to tell family.
+  Required euphemism: "log pagal samjhenge"
+
+D-115: Age 30, G3P3, Postpartum Week 4, Persona: Junior HO, IMPLICIT (Pattern C)
+  Edinburgh Postnatal Depression Scale score of 14 recorded but worker
+  doesn't flag it as above threshold (≥13). Notes "will recheck next visit."
+
+D-116: Age 24, G1P1, Postpartum Week 7, Persona: Senior Consultant, EXPLICIT
+  PPD with birth trauma history, debriefing + medication plan.
+  ASR errors: Edinburgh→eden berg, postnatal→post nay tal
+
+
+─── BATCH 10: ECTOPIC PREGNANCY (D-117 to D-124) ───
+8 transcripts. 6 EXPLICIT, 2 IMPLICIT.
+
+D-117: Age 31, G3P2, 6wks, 1st tri, Persona: Junior HO, EXPLICIT
+  Unilateral pain, positive test, no intrauterine pregnancy on scan.
+  Required euphemism: "ek side bohat tez dard hai"
+  ASR errors: ectopic→eck topic, salpingectomy→sal ping ecto me
+
+D-118: Age 26, G2P1, 5wks, 1st tri, Persona: Nurse-LHW, EXPLICIT
+  Previous PID history, current pain + spotting, urgent referral.
+  Required euphemism: "stick positive aayi lekin dard hai"
+
+D-119: Age 28, G3P2, 7wks, 1st tri, Persona: Senior Consultant, EXPLICIT
+  Confirmed ectopic on scan, surgical management planning.
+  ASR errors: laparoscopy→lab a roscopy, beta-hCG→beta H C G
+
+D-120: Age 24, G1P0, 6wks, 1st tri, Persona: Junior HO, IMPLICIT (Pattern A)
+  Patient has right iliac fossa pain attributed to "gas ki takleef."
+  Positive pregnancy test done at home. Worker prescribes antacids.
+  No ultrasound ordered.
+
+D-121: Age 33, G4P3, 8wks, 1st tri, Persona: Nurse-LHW, EXPLICIT
+  Ruptured ectopic, acute abdomen, emergency surgery referral.
+  ASR errors: ruptured→rup chured, haemodynamic→hemo dynamic
+
+D-122: Age 29, G2P1, 5wks, 1st tri, Persona: Senior Consultant, EXPLICIT
+  Medical management of ectopic with methotrexate.
+  ASR errors: methotrexate→metho trex ate
+
+D-123: Age 22, G1P0, 7wks, 1st tri, Persona: Junior HO, EXPLICIT
+  Pregnancy of unknown location, serial beta-hCG monitoring plan.
+
+D-124: Age 35, G3P2, 6wks, 1st tri, Persona: Nurse-LHW, IMPLICIT (Pattern B)
+  Mentions pain on one side early in dictation. Later mentions previous
+  infection history ("pehle ek dafa bohat infection hua tha"). Positive
+  pregnancy test mentioned at end. Worker never connects these.
+
+
+─── BATCH 11: RECURRENT MISCARRIAGE (D-125 to D-134) ───
+10 transcripts. 7 EXPLICIT, 3 IMPLICIT.
+
+D-125: Age 26, G4P0, 8wks, 1st tri, Persona: Junior HO, EXPLICIT
+  Three previous miscarriages, folk belief "athra", progesterone support.
+  Required euphemism: "teen dafa bachha gir gaya", "athra lag gaya hai"
+  ASR errors: progesterone→pro jester own, miscarriage→miss carriage
+
+D-126: Age 30, G5P1, 10wks, 1st tri, Persona: Nurse-LHW, EXPLICIT
+  Recurrent loss with saas blaming patient, cultural sensitivity needed.
+  Required euphemism: "pir sahab ne kaha athra hai"
+
+D-127: Age 28, G3P0, 6wks, 1st tri, Persona: Senior Consultant, EXPLICIT
+  Antiphospholipid syndrome workup for recurrent loss.
+  ASR errors: antiphospholipid→anti phosphor lip id, aspirin→as pirin
+
+D-128: Age 24, G3P0, 9wks, 1st tri, Persona: Junior HO, IMPLICIT (Pattern A)
+  Patient mentions two previous losses. Worker records history but doesn't
+  order any investigations (no thrombophilia screen, no karyotype). Prescribes
+  folic acid only.
+
+D-129: Age 33, G6P2, 7wks, 1st tri, Persona: Nurse-LHW, EXPLICIT
+  Multiple losses, cervical incompetence suspected, cerclage discussion.
+  ASR errors: cerclage→sir klaj, incompetence→in competence
+
+D-130: Age 27, G4P0, 11wks, 1st tri, Persona: Senior Consultant, EXPLICIT
+  Recurrent loss workup complete, aspirin + progesterone started.
+
+D-131: Age 22, G3P0, 8wks, 1st tri, Persona: Junior HO, EXPLICIT
+  Threatened miscarriage (current bleeding) with two prior losses.
+  Required euphemism: "halka khoon aaya hai", "bohat darr lag raha hai"
+  ASR errors: threatened→thret end
+
+D-132: Age 35, G5P1, 12wks, 1st tri, Persona: Nurse-LHW, IMPLICIT (Pattern B)
+  Mentions previous "do dafa gir gaya" in pregnancy history. Mentions "thyroid
+  ki dawa leti thi pehle lekin chhod di" in medical history. Worker doesn't
+  connect uncontrolled thyroid to recurrent loss risk.
+
+D-133: Age 29, G4P1, 10wks, 1st tri, Persona: Senior Consultant, EXPLICIT
+  Lupus anticoagulant positive, heparin management plan.
+  ASR errors: heparin→he par in, anticoagulant→anti co ag you lant
+
+D-134: Age 31, G4P0, 9wks, 1st tri, Persona: Junior HO, IMPLICIT (Pattern C)
+  Patient has three losses and consanguineous marriage noted in socioeconomic
+  section. Worker doesn't order genetic screening or karyotyping.
+
+
+─── BATCH 12: HYPEREMESIS GRAVIDARUM (D-135 to D-142) ───
+8 transcripts. 7 EXPLICIT, 1 IMPLICIT.
+
+D-135: Age 19, G1P0, 10wks, 1st tri, Persona: Junior HO, EXPLICIT
+  Severe vomiting 8-10x/day, dehydration, weight loss, teenager.
+  Required euphemism: "kuch bhi khaun ulti ho jati hai"
+  ASR errors: hyperemesis→hyper em asis, antiemetic→anti a met ik
+
+D-136: Age 24, G2P1, 8wks, 1st tri, Persona: Nurse-LHW, EXPLICIT
+  Severe nausea, saas giving desi totke, IV fluids needed.
+  Required euphemism: "pani bhi nahi rukta"
+
+D-137: Age 28, G3P2, 12wks, 1st tri, Persona: Senior Consultant, EXPLICIT
+  Hyperemesis with ketonuria, admission for rehydration.
+  ASR errors: ketonuria→key tone urea, rehydration→re high dray shun
+
+D-138: Age 21, G1P0, 9wks, 1st tri, Persona: Junior HO, EXPLICIT
+  First pregnancy severe vomiting, electrolyte imbalance concern.
+  ASR errors: electrolyte→electro light, potassium→pot a see um
+
+D-139: Age 30, G3P2, 11wks, 1st tri, Persona: Nurse-LHW, EXPLICIT
+  Moderate hyperemesis, dietary counseling emphasis, ginger remedies.
+
+D-140: Age 26, G2P1, 7wks, 1st tri, Persona: Senior Consultant, EXPLICIT
+  Hyperemesis with thyroid dysfunction (hCG-mediated thyrotoxicosis).
+  ASR errors: thyrotoxicosis→thyro toxic oh sis, hCG→H C G
+
+D-141: Age 22, G1P0, 10wks, 1st tri, Persona: Junior HO, IMPLICIT (Pattern A)
+  Vomiting 4-5x/day but worker categorizes as "normal morning sickness."
+  Weight loss of 3kg noted but not flagged. Dark urine mentioned in passing.
+
+D-142: Age 33, G4P3, 8wks, 1st tri, Persona: Nurse-LHW, EXPLICIT
+  Hyperemesis in grand multigravida, husband can't afford hospital stay.
+  Required euphemism: "hospital ka kharcha nahi utha sakte"
+
+
+─── BATCH 13: BREECH / MALPRESENTATION (D-143 to D-150) ───
+8 transcripts. 7 EXPLICIT, 1 IMPLICIT.
+
+D-143: Age 29, G3P2, 36wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  Breech at 36wks, previous C-section, delivery planning.
+  Required euphemism: "bachha ultaa hai"
+  ASR errors: breech→breach, external cephalic→external specific
+
+D-144: Age 25, G1P0, 37wks, 3rd tri, Persona: Nurse-LHW, EXPLICIT
+  Breech primigravida, ECV discussion, patient anxious about C-section.
+  ASR errors: version→ver shun
+
+D-145: Age 34, G4P3, 35wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  Transverse lie, planned C-section at 38wks.
+
+D-146: Age 22, G1P0, 34wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  Breech with anterior placenta, ECV contraindicated.
+  ASR errors: contraindicated→contra in dee cated
+
+D-147: Age 31, G3P2, 38wks, 3rd tri, Persona: Nurse-LHW, EXPLICIT
+  Breech with previous vaginal deliveries, trial of breech delivery discussed.
+
+D-148: Age 27, G2P1, 36wks, 3rd tri, Persona: Senior Consultant, IMPLICIT (Pattern A)
+  Fundal palpation suggests "something hard up here" but worker documents
+  as "? cephalic" with uncertainty. Doesn't order ultrasound to confirm.
+
+D-149: Age 36, G5P4, 37wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  Breech with oligohydramnios, urgent C-section planning.
+  ASR errors: oligohydramnios→oligo hydra amnios
+
+D-150: Age 24, G2P1, 35wks, 3rd tri, Persona: Nurse-LHW, EXPLICIT
+  Breech detected by LHW on palpation, referral for confirmation.
+  Required euphemism: "sir oopar lag raha hai, laat neeche"
+
+
+─── BATCH 14: POSTPARTUM COMPLICATIONS - MASTITIS/BREASTFEEDING (D-151 to D-158) ───
+8 transcripts. 7 EXPLICIT, 1 IMPLICIT.
+
+D-151: Age 21, G1P1, Postpartum Day 14, Persona: Junior HO, EXPLICIT
+  Mastitis with fever, cracked nipples, latch issues.
+  Required euphemism: "breast mein sujan aur dard", "bacha muh nahi lagata"
+  ASR errors: mastitis→mass tight is, lactation→lack tay shun
+
+D-152: Age 28, G2P2, Postpartum Day 10, Persona: Nurse-LHW, EXPLICIT
+  Breast abscess developing, needs incision and drainage referral.
+  Required euphemism: "doodh mein gaanth ban gayi hai"
+
+D-153: Age 25, G1P1, Postpartum Day 7, Persona: Senior Consultant, EXPLICIT
+  Severe mastitis with systemic symptoms, IV antibiotics.
+  ASR errors: abscess→ab cess
+
+D-154: Age 32, G3P3, Postpartum Day 21, Persona: Junior HO, EXPLICIT
+  Inadequate milk supply, baby weight not gaining, supplementation discussed.
+
+D-155: Age 19, G1P1, Postpartum Day 5, Persona: Nurse-LHW, EXPLICIT
+  Latch problems, nipple pain, saas suggesting "desi ghee lagao."
+  Required euphemism: "doodh nahi aa raha theek se"
+
+D-156: Age 27, G2P2, Postpartum Day 12, Persona: Senior Consultant, EXPLICIT
+  Recurrent blocked duct, ultrasound therapeutic consideration.
+
+D-157: Age 23, G1P1, Postpartum Day 8, Persona: Junior HO, IMPLICIT (Pattern A)
+  Patient mentions breast is "thodi garam lagti hai" and "dard hota hai
+  doodh pilate waqt." Worker advises warm compress only, doesn't check for
+  fever or examine for erythema. Records as "normal breastfeeding discomfort."
+
+D-158: Age 30, G3P3, Postpartum Day 16, Persona: Nurse-LHW, EXPLICIT
+  Mastitis with cultural pressure to use home remedies vs antibiotics.
+  ASR errors: antibiotic→anti buy otic
+
+
+─── BATCH 15: HYPERTENSION (CHRONIC) & MEDICATION NON-ADHERENCE (D-159 to D-166) ───
+8 transcripts. 6 EXPLICIT, 2 IMPLICIT.
+
+D-159: Age 38, G7P6, 22wks, 2nd tri, Persona: Junior HO, EXPLICIT
+  Chronic HTN, skipping medication, grand multipara, fatalistic attitude.
+  Required euphemism: "dawa bhool jati hoon", "Allah ki marzi"
+  ASR errors: antihypertensive→anti high per tense iv, methyldopa→methyl dope a
+
+D-160: Age 35, G5P4, 28wks, 3rd tri, Persona: Nurse-LHW, EXPLICIT
+  HTN with non-compliance, financial constraints on medication.
+  Required euphemism: "BP ki goli mehengi hain"
+
+D-161: Age 40, G6P5, 30wks, 3rd tri, Persona: Senior Consultant, EXPLICIT
+  Chronic HTN progressing, dose adjustment, monitoring plan.
+
+D-162: Age 33, G4P3, 24wks, 2nd tri, Persona: Junior HO, IMPLICIT (Pattern C)
+  BP 140/88 noted at pharmacy 2 weeks ago but not rechecked by worker.
+  Worker notes "patient kehti hai BP theek hai ab" without verification.
+
+D-163: Age 36, G5P4, 32wks, 3rd tri, Persona: Nurse-LHW, EXPLICIT
+  HTN with headache and dizziness, compliance counseling.
+  Required euphemism: "sir chakkar aate hain"
+
+D-164: Age 29, G3P2, 26wks, 2nd tri, Persona: Senior Consultant, EXPLICIT
+  New-onset chronic HTN in pregnancy, workup and management.
+  ASR errors: labetalol→label a tall
+
+D-165: Age 37, G6P5, 34wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  Uncontrolled chronic HTN, end-organ assessment needed.
+  ASR errors: echocardiogram→echo cardio gram, creatinine→cree at in een
+
+D-166: Age 31, G4P3, 20wks, 2nd tri, Persona: Nurse-LHW, IMPLICIT (Pattern A)
+  Patient mentions dizziness on standing but worker attributes to "garmi."
+  BP reading from last visit was 135/85 (borderline) but not rechecked.
+
+
+─── BATCH 16: VAGINAL PROLAPSE / GYNECOLOGICAL (D-167 to D-172) ───
+6 transcripts. 5 EXPLICIT, 1 IMPLICIT.
+
+D-167: Age 40, G8P7, N/A, Persona: Junior HO, EXPLICIT
+  Vaginal prolapse, urinary incontinence, multiple deliveries.
+  Required euphemism: "andar baahir aa raha hai", "khansi se peshab nikal jata hai"
+  ASR errors: prolapse→pro laps, pessary→pess airy
+
+D-168: Age 35, G6P5, N/A, Persona: Nurse-LHW, EXPLICIT
+  Stage 2 prolapse, ring pessary fitted, pelvic floor exercises.
+  Required euphemism: "neeche se kuch nikalta hua mehsoos"
+
+D-169: Age 45, G7P6, N/A, Persona: Senior Consultant, EXPLICIT
+  Severe prolapse requiring surgical repair, pre-op assessment.
+  ASR errors: hysterectomy→his ter ecto me
+
+D-170: Age 38, G6P5, N/A, Persona: Junior HO, EXPLICIT
+  Cystocele with stress incontinence, conservative management trial.
+  ASR errors: cystocele→sis toe seal
+
+D-171: Age 42, G8P7, N/A, Persona: Nurse-LHW, IMPLICIT (Pattern A)
+  Patient mentions "bhaari cheez uthane se takleef hoti hai neeche" but
+  too embarrassed to elaborate. Worker records vague complaint, doesn't
+  examine or probe further.
+
+D-172: Age 36, G5P4, N/A, Persona: Senior Consultant, EXPLICIT
+  Rectocele with defecatory dysfunction, surgical referral.
+
+
+─── BATCH 17: INFECTION DURING PREGNANCY (D-173 to D-180) ───
+8 transcripts. 7 EXPLICIT, 1 IMPLICIT.
+
+D-173: Age 20, G1P0, 20wks, 2nd tri, Persona: Junior HO, EXPLICIT
+  High fever + abdominal pain, no prior ANC, saas gatekeeping.
+  Required euphemism: "bukhar hai aur jism toot raha hai"
+  ASR errors: chorioamnionitis→chorio amnio night is
+
+D-174: Age 27, G3P2, 28wks, 2nd tri, Persona: Nurse-LHW, EXPLICIT
+  Malaria in pregnancy, high fever, treatment considerations.
+  ASR errors: chloroquine→chloro queen, artemisinin→art a miss in in
+
+D-175: Age 32, G4P3, 24wks, 2nd tri, Persona: Senior Consultant, EXPLICIT
+  Tuberculosis in pregnancy, medication safety, MDR screening.
+  ASR errors: tuberculosis→tuber Q low sis, rifampicin→rif am pi sin
+
+D-176: Age 24, G2P1, 16wks, 2nd tri, Persona: Junior HO, EXPLICIT
+  Dengue in pregnancy, thrombocytopenia, monitoring plan.
+  ASR errors: thrombocytopenia→thrombo cytop pee nee a, platelet→plate let
+
+D-177: Age 29, G3P2, 32wks, 3rd tri, Persona: Nurse-LHW, EXPLICIT
+  Hepatitis B positive, vertical transmission prevention.
+  Required euphemism: "jaundice wali bimari hai kehte hain"
+  ASR errors: hepatitis→hepa tight is, immunoglobulin→immune oh glob you lin
+
+D-178: Age 22, G1P0, 22wks, 2nd tri, Persona: Senior Consultant, EXPLICIT
+  TORCH screening positive (rubella IgM), fetal anomaly scan ordered.
+  ASR errors: rubella→roo bell a, immunoglobulin→immune oh glob you lin
+
+D-179: Age 35, G5P4, 30wks, 3rd tri, Persona: Junior HO, IMPLICIT (Pattern C)
+  Patient has persistent low-grade fever for a week but worker attributes to
+  "mausam ki wajah se." No blood cultures or malaria screening ordered.
+  Prescribes paracetamol and follow-up in 2 weeks.
+
+D-180: Age 26, G2P1, 18wks, 2nd tri, Persona: Nurse-LHW, EXPLICIT
+  Urinary sepsis, high fever, rigors, urgent referral to tertiary care.
+  ASR errors: sepsis→sep sis, rigors→rig ors
+
+
+─── BATCH 18: THREATENED / INEVITABLE MISCARRIAGE (D-181 to D-188) ───
+8 transcripts. 6 EXPLICIT, 2 IMPLICIT.
+
+D-181: Age 27, G3P1, 10wks, 1st tri, Persona: Junior HO, EXPLICIT
+  Bleeding at 10wks, previous miscarriage history, bed rest + progesterone.
+  Required euphemism: "halka khoon aaya", "darr lagta hai ke phir na ho jaye"
+  ASR errors: progesterone→pro jester own, miscarriage→miss carriage
+
+D-182: Age 22, G2P0, 8wks, 1st tri, Persona: Nurse-LHW, EXPLICIT
+  Active bleeding, cramping, inevitable miscarriage, hospital referral.
+  Required euphemism: "pet mein maror hai aur khoon aa raha hai"
+
+D-183: Age 35, G5P3, 12wks, 1st tri, Persona: Senior Consultant, EXPLICIT
+  Missed miscarriage on scan, evacuation planning.
+  ASR errors: evacuation→eva queue ation, misoprostol→miso pros tall
+
+D-184: Age 24, G2P1, 7wks, 1st tri, Persona: Junior HO, IMPLICIT (Pattern A)
+  Minimal spotting attributed to "implantation bleeding." Worker reassures
+  without ordering ultrasound to confirm viability.
+
+D-185: Age 30, G3P1, 11wks, 1st tri, Persona: Nurse-LHW, EXPLICIT
+  Threatened miscarriage, complete bed rest, emotional support.
+  Required euphemism: "Allah ke bharose chhod diya hai"
+
+D-186: Age 28, G3P2, 9wks, 1st tri, Persona: Senior Consultant, EXPLICIT
+  Threatened miscarriage with subchorionic hematoma on scan.
+  ASR errors: subchorionic→sub chronic, hematoma→hema toe ma
+
+D-187: Age 33, G4P2, 13wks, 1st tri, Persona: Junior HO, EXPLICIT
+  Late first trimester bleeding, cervix closed, observation protocol.
+
+D-188: Age 21, G2P0, 6wks, 1st tri, Persona: Nurse-LHW, IMPLICIT (Pattern B)
+  Mentions "thoda sa brown spotting tha" in medical history. Mentions "pet mein
+  cramps hote hain" when discussing diet/digestion. Previous loss noted in
+  pregnancy history section. Worker treats cramps as digestive issue.
+
+
+─── BATCH 19: DOMESTIC VIOLENCE (D-189 to D-194) ───
+6 transcripts. 3 EXPLICIT, 3 IMPLICIT.
+
+D-189: Age 24, G2P1, 20wks, 2nd tri, Persona: Nurse-LHW, EXPLICIT
+  Patient discloses abuse, bruises documented, safety planning.
+  Required euphemism: "ghar mein masla hai", "shohar haath uthata hai"
+
+D-190: Age 28, G3P2, 28wks, 3rd tri, Persona: Junior HO, IMPLICIT (Pattern B)
+  Bruises attributed to "gir gayi thi." Sleep disturbance and "darr lagta hai"
+  mentioned without context. Patient's demeanor changes when husband mentioned.
+  Worker records surface explanations without probing.
+
+D-191: Age 22, G1P0, 16wks, 2nd tri, Persona: Nurse-LHW, IMPLICIT (Pattern A)
+  Patient withdrawn, answers in monosyllables, husband answered most questions.
+  Worker notes "patient shy lagti hai" but doesn't screen for abuse.
+  Multiple missed appointments noted but not explored.
+
+D-192: Age 30, G4P3, 24wks, 2nd tri, Persona: Senior Consultant, EXPLICIT
+  Suspected abuse, fracture history, mandatory reporting discussion.
+
+D-193: Age 26, G2P1, 30wks, 3rd tri, Persona: Junior HO, EXPLICIT
+  Disclosed abuse, safety assessment, referral to support services.
+  ASR errors: domestic→do mestic, violence→via lens
+
+D-194: Age 20, G1P0, 12wks, 1st tri, Persona: Nurse-LHW, IMPLICIT (Pattern C)
+  Worker notes multiple bruises on arms during BP check but records only
+  "patient had minor falls." Doesn't ask follow-up questions about home safety.
+
+
+─── BATCH 20: NORMAL / ROUTINE CONTROLS (D-195 to D-200) ───
+6 transcripts. All NONE (no red flags). Control group for specificity testing.
+
+D-195: Age 28, G2P1, 20wks, 2nd tri, Persona: Junior HO, NONE
+  Completely normal ANC visit. All vitals normal. No complaints.
+  ASR errors: 2 routine errors (antenatal→ante needle, supplement→supple mint)
+
+D-196: Age 25, G1P0, 32wks, 3rd tri, Persona: Nurse-LHW, NONE
+  Normal third trimester check, baby active, patient healthy.
+  ASR errors: 2 routine errors
+
+D-197: Age 30, G3P2, 16wks, 2nd tri, Persona: Senior Consultant, NONE
+  Brief routine check, all investigations normal.
+
+D-198: Age 22, G1P0, 12wks, 1st tri, Persona: Junior HO, NONE
+  First visit booking, dating scan normal, routine blood work ordered.
+  ASR errors: 2 routine errors
+
+D-199: Age 35, G4P3, Postpartum Week 6, Persona: Nurse-LHW, NONE
+  Normal postpartum check, breastfeeding well, wound healed.
+
+D-200: Age 27, G2P1, 28wks, 2nd tri, Persona: Senior Consultant, NONE
+  Normal follow-up, no concerns, next appointment scheduled.
+
+
+================================================================================
+DISTRIBUTION VERIFICATION
+================================================================================
+
+Total: 200 transcripts
+  EXPLICIT: 143
+  IMPLICIT: 30 (spread across 15 conditions using 3 patterns)
+  NONE (Control): 6
+  Remaining EXPLICIT to reach 170: 27 are embedded within batch counts above
+  (Total EXPLICIT = 143 + 27 adjustment = 170 ✓ — note: batch counts above
+  sum to 143 explicit, 30 implicit, 6 none = 179. Remaining 21 are in the
+  batch counts that sum to more — verify: 12+10+10+9+10+9+10+10+7+6+7+7+7+7+6+5+7+6+3+0 = 163 explicit. Adjust final batch sizes upward as needed to hit 170.)
+
+Clinical Conditions: 15 + controls
+Personas: ~67 Senior, ~68 Junior HO, ~65 Nurse-LHW
+Trimesters: 1st ~38, 2nd ~42, 3rd ~72, Postpartum ~30, N/A ~6, Controls mixed ~12
+Ages: 18-45, weighted 20-30
+
+================================================================================
+FINAL INSTRUCTION
+================================================================================
+
+Generate all 200 dictations now, sequentially from D-001 to D-200. Each must
+include METADATA, GROUND_TRUTH_JSON, and DICTATION text. Do not summarize,
+abbreviate, or skip any dictation. The dictation is RAW MONOLOGUE TEXT ONLY.
+
+Due to output length, generate in batches of 25:
+  Run 1: D-001 to D-025
+  Run 2: D-026 to D-050
+  Run 3: D-051 to D-075
+  Run 4: D-076 to D-100
+  Run 5: D-101 to D-125
+  Run 6: D-126 to D-150
+  Run 7: D-151 to D-175
+  Run 8: D-176 to D-200
+
+Begin generation now with D-001.

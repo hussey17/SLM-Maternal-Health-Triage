@@ -1,0 +1,67 @@
+{
+  "medical_history": {
+    "age": "19",
+    "gravida": "1",
+    "para": "1",
+    "gestational_age_weeks": "",
+    "lmp": "",
+    "conditions": [
+      "Postpartum depression"
+    ],
+    "allergies": "",
+    "medications": [],
+    "menstrual_regularity": "",
+    "contraception_history": ""
+  },
+  "family_history": {
+    "maternal": [],
+    "paternal": [],
+    "husband_family": [],
+    "consanguinity": ""
+  },
+  "socio_economic": {
+    "family_type": "",
+    "husband_education": "",
+    "husband_blood_group": "",
+    "husband_occupation": "",
+    "abuse_screen": "",
+    "mental_health_screen": "Suicidal ideation"
+  },
+  "previous_pregnancies": [
+    {
+      "pregnancy_number": 1,
+      "outcome": "Live birth",
+      "mode_of_delivery": "",
+      "complications": [],
+      "baby_outcome": "Alive",
+      "baby_weight_kg": ""
+    }
+  ],
+  "present_pregnancy": {
+    "trimester": "Postpartum",
+    "symptoms": [
+      "Severe depression",
+      "Suicidal ideation"
+    ],
+    "fundal_height_cm": "",
+    "presentation": "",
+    "engagement": "",
+    "fetal_movement": "",
+    "edema": "",
+    "ultrasound_findings": "",
+    "urine_dipstick": "",
+    "food_intake": ""
+  },
+  "proposed_plan": {
+    "diagnosis": "Postpartum depression with suicidal ideation",
+    "prescriptions": [],
+    "investigations_ordered": [],
+    "follow_up": "Urgent specialist referral",
+    "referral": "Psychiatric emergency"
+  },
+  "triage_status": "EMERGENCY",
+  "red_flags_present": [
+    "Suicidal ideation",
+    "Postpartum depression"
+  ]
+}

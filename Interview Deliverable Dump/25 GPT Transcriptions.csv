@@ -1,0 +1,26 @@
+ID,Primary Condition,Red Flag Type,Patient Age,Gravida,Trimester,Turns
+T-001,Pre-eclampsia,EXPLICIT,28,G3,3rd,36
+T-002,Severe anemia,EXPLICIT,22,G2,2nd,35
+T-003,Gestational diabetes,EXPLICIT,35,G5,3rd,38
+T-004,Antepartum hemorrhage,EXPLICIT,30,G4,3rd,33
+T-005,Reduced fetal movement,EXPLICIT,25,G2,3rd,31
+T-006,Preterm labor signs,EXPLICIT,27,G3,3rd,34
+T-007,PROM,EXPLICIT,24,G1,3rd,30
+T-008,Hyperemesis gravidarum,EXPLICIT,19,G1,1st,33
+T-009,UTI with vaginal infection,EXPLICIT,32,G6,2nd,31
+T-010,Recurrent miscarriages,EXPLICIT,26,G4,1st,37
+T-011,Postpartum hemorrhage,EXPLICIT,29,G3,Postpartum,30
+T-012,Postpartum depression,EXPLICIT,23,G1,Postpartum,34
+T-013,Ectopic pregnancy concern,EXPLICIT,31,G3,1st,28
+T-014,Hypertension (chronic),EXPLICIT,38,G7,2nd,32
+T-015,Vaginal prolapse symptoms,EXPLICIT,40,G8,N/A,29
+T-016,Suspected breech presentation,EXPLICIT,29,G3,3rd,29
+T-017,Severe infection during pregnancy,EXPLICIT,20,G1,2nd,35
+T-018,Gestational hypertension progressing,EXPLICIT,33,G4,3rd,30
+T-019,Threatened miscarriage,EXPLICIT,27,G3,1st,29
+T-020,Breastfeeding complications (mastitis),EXPLICIT,21,G1,Postpartum,31
+T-021,Early pre-eclampsia,IMPLICIT,26,G2,3rd,30
+T-022,Concealed domestic violence,IMPLICIT,24,G2,2nd,30
+T-023,Undiagnosed gestational diabetes,IMPLICIT,34,G4,2nd,29
+T-024,Gradual onset severe anemia,IMPLICIT,29,G5,3rd,30
+T-025,Reduced fetal movement,IMPLICIT,31,G3,3rd,29

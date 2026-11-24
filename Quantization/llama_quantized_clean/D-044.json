@@ -1,0 +1,84 @@
+{
+  "medical_history": {
+    "age": "30",
+    "gravida": "4",
+    "para": "3",
+    "gestational_age_weeks": "31",
+    "lmp": "",
+    "conditions": [],
+    "allergies": "",
+    "medications": [
+      "Iron supplement"
+    ],
+    "menstrual_regularity": "",
+    "contraception_history": "Previous pregnancies spaced 2 years apart"
+  },
+  "family_history": {
+    "maternal": [],
+    "paternal": [],
+    "husband_family": [],
+    "consanguinity": ""
+  },
+  "socio_economic": {
+    "family_type": "",
+    "husband_education": "",
+    "husband_blood_group": "",
+    "husband_occupation": "",
+    "abuse_screen": "",
+    "mental_health_screen": ""
+  },
+  "previous_pregnancies": [
+    {
+      "pregnancy_number": 1,
+      "outcome": "Live birth",
+      "mode_of_delivery": "",
+      "complications": [],
+      "baby_outcome": "Alive",
+      "baby_weight_kg": ""
+    },
+    {
+      "pregnancy_number": 2,
+      "outcome": "Live birth",
+      "mode_of_delivery": "",
+      "complications": [],
+      "baby_outcome": "Alive",
+      "baby_weight_kg": ""
+    },
+    {
+      "pregnancy_number": 3,
+      "outcome": "Live birth",
+      "mode_of_delivery": "",
+      "complications": [],
+      "baby_outcome": "Alive",
+      "baby_weight_kg": ""
+    }
+  ],
+  "present_pregnancy": {
+    "trimester": "3rd",
+    "symptoms": [
+      "Fetal movement irregularity"
+    ],
+    "fundal_height_cm": "",
+    "presentation": "",
+    "engagement": "",
+    "fetal_movement": "Irregular",
+    "edema": "",
+    "ultrasound_findings": "",
+    "urine_dipstick": "",
+    "food_intake": ""
+  },
+  "proposed_plan": {
+    "diagnosis": "",
+    "prescriptions": [
+      "Iron supplement"
+    ],
+    "investigations_ordered": [],
+    "follow_up": "Routine",
+    "referral": ""
+  },
+  "triage_status": "URGENT",
+  "red_flags_present": [
+    "Fetal movement irregularity",
+    "Anemia"
+  ]
+}

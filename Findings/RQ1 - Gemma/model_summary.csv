@@ -1,0 +1,4 @@
+,coverage,coverage,accuracy,accuracy,translation_fidelity,translation_fidelity,field_classification,field_classification,numerical_accuracy,numerical_accuracy,triage_reasoning,triage_reasoning,schema_compliance,schema_compliance,clinical_completeness,clinical_completeness,total_score,total_score
+,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std
+model,,,,,,,,,,,,,,,,,,
+gemma-2-2b-it,5.45,1.44,3.43,1.33,7.6,3.73,8.16,2.03,6.35,3.03,7.65,4.63,3.48,0.86,4.81,2.05,46.93,8.96

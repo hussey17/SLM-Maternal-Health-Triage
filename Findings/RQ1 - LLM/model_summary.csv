@@ -1,0 +1,4 @@
+,coverage,coverage,accuracy,accuracy,translation_fidelity,translation_fidelity,field_classification,field_classification,numerical_accuracy,numerical_accuracy,triage_reasoning,triage_reasoning,schema_compliance,schema_compliance,clinical_completeness,clinical_completeness,total_score,total_score
+,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std
+model,,,,,,,,,,,,,,,,,,
+gemini-2.5-flash,6.86,2.91,4.31,2.09,13.57,2.99,8.79,1.82,9.42,1.6,9.37,4.91,3.8,0.98,6.22,2.25,62.34,8.76

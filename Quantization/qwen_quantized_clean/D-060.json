@@ -1,0 +1,54 @@
+{
+  "medical_history": {
+    "age": "23",
+    "gravida": "1",
+    "para": "0",
+    "gestational_age_weeks": "38",
+    "lmp": "",
+    "conditions": [],
+    "allergies": "",
+    "medications": [],
+    "menstrual_regularity": "",
+    "contraception_history": ""
+  },
+  "family_history": {
+    "maternal": [],
+    "paternal": [],
+    "husband_family": [],
+    "consanguinity": ""
+  },
+  "socio_economic": {
+    "family_type": "",
+    "husband_education": "",
+    "husband_blood_group": "",
+    "husband_occupation": "",
+    "abuse_screen": "",
+    "mental_health_screen": "Anxious about baby’s movement"
+  },
+  "previous_pregnancies": [],
+  "present_pregnancy": {
+    "trimester": "3rd",
+    "symptoms": [
+      "Absent fetal movement"
+    ],
+    "fundal_height_cm": "",
+    "presentation": "",
+    "engagement": "",
+    "fetal_movement": "",
+    "edema": "",
+    "ultrasound_findings": "",
+    "urine_dipstick": "",
+    "food_intake": ""
+  },
+  "proposed_plan": {
+    "diagnosis": "Absent fetal movement at 38 weeks",
+    "prescriptions": [],
+    "investigations_ordered": [],
+    "follow_up": "Urgent referral",
+    "referral": "Obstetric follow-up"
+  },
+  "triage_status": "EMERGENCY",
+  "red_flags_present": [
+    "Absent fetal movement"
+  ]
+}

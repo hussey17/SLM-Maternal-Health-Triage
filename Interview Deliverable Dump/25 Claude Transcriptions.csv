@@ -1,0 +1,26 @@
+ID,Primary Condition,Red Flag Type,Patient Age,Gravida,Trimester,Turns
+T-001,Pre-eclampsia,EXPLICIT,28,G3P2,3rd,36
+T-002,Severe anemia (Hb < 7),EXPLICIT,22,G2P0 (one previous stillbirth),2nd,34
+T-003,Gestational diabetes,EXPLICIT,35,G5P4,3rd,40
+T-004,Antepartum hemorrhage,EXPLICIT,30,G4P3,3rd,32
+T-005,Reduced fetal movement,EXPLICIT,25,G2P0 (one previous miscarriage),3rd,28
+T-006,Preterm labor signs (contractions at 30 weeks),EXPLICIT,27,G3P2,3rd,31
+T-007,PROM (premature rupture of membranes),EXPLICIT,24,G1P0 (primigravida),3rd,29
+T-008,Hyperemesis gravidarum (severe vomiting/dehydration),EXPLICIT,19,G1P0 (primigravida teenager),1st,29
+T-009,UTI with vaginal infection,EXPLICIT,32,G6P5,2nd,29
+T-010,Recurrent miscarriages (3 previous losses),EXPLICIT,26,G4P0 (three previous miscarriages),1st,27
+T-011,Postpartum hemorrhage,EXPLICIT,29,G3P3 (just delivered 3 days ago),Postpartum,26
+T-012,Postpartum depression,EXPLICIT,23,G1P1 (first child 6 weeks postpartum),Postpartum,31
+T-013,Ectopic pregnancy concern,EXPLICIT,31,G3P2,1st,26
+T-014,Hypertension (chronic pre-existing),EXPLICIT,38,G7P6,2nd,28
+T-015,Vaginal prolapse symptoms,EXPLICIT,40,G8P7,N/A (gynecological complaint),25
+T-016,Suspected breech presentation at 36 weeks,EXPLICIT,29,G3P2 (one previous C-section one SVD),3rd,23
+T-017,Severe infection during pregnancy (high fever + abdominal pain),EXPLICIT,20,G1P0 (primigravida),2nd,30
+T-018,Gestational hypertension progressing (new onset at 28 weeks),EXPLICIT,33,G4P3,3rd,30
+T-019,Threatened miscarriage (bleeding at 10 weeks),EXPLICIT,27,G3P1 (one live child one previous loss),1st,24
+T-020,Breastfeeding complications (mastitis with fever),EXPLICIT,21,G1P1 (first child 2 weeks postpartum),Postpartum,28
+T-021,Early pre-eclampsia (symptoms attributed to normal pregnancy),IMPLICIT,26,G2P1,3rd,32
+T-022,Concealed domestic violence presenting as repeated falls,IMPLICIT,24,G2P1,2nd,37
+T-023,Undiagnosed gestational diabetes (symptoms scattered across casual conversation),IMPLICIT,34,G4P3,2nd,32
+T-024,Gradual onset severe anemia (compensated patient functional),IMPLICIT,29,G5P4,3rd,33
+T-025,Reduced fetal movement (patient hasn't noticed the change),IMPLICIT,31,G3P2,3rd,31

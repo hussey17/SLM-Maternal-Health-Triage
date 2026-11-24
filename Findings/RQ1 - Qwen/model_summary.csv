@@ -1,0 +1,4 @@
+,coverage,coverage,accuracy,accuracy,translation_fidelity,translation_fidelity,field_classification,field_classification,numerical_accuracy,numerical_accuracy,triage_reasoning,triage_reasoning,schema_compliance,schema_compliance,clinical_completeness,clinical_completeness,total_score,total_score
+,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std
+model,,,,,,,,,,,,,,,,,,
+Qwen2.5-3B-Instruct,5.5,1.67,3.83,1.93,8.9,4.18,8.73,2.05,8.67,2.25,8.22,3.72,3.54,0.89,3.47,1.78,50.86,8.84
